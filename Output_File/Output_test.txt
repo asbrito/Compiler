@@ -1,0 +1,46 @@
+if Keyword
+
+( Delimiter
+
+3 Number
+
+> RelationalOperator
+
+2 Number
+
+) Delimiter
+
+then Keyword
+
+{ Delimiter
+
+if Keyword
+
+( Delimiter
+
+3 Number
+
+> RelationalOperator
+
+2 Number
+
+) Delimiter
+
+then Keyword
+
+{ Delimiter
+
+} Delimiter
+
+} Delimiter
+
+else Keyword
+
+{ Delimiter
+
+} Delimiter
+
+ 
+ ERROR:  
+
+Nenhum erro léxico encontrado!
