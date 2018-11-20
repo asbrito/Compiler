@@ -1,3 +1,23 @@
+write Keyword
+
+( Delimiter
+
+a Identifier
+
+[ Delimiter
+
+a Identifier
+
+] Delimiter
+
+, Delimiter
+
+ String
+
+) Delimiter
+
+; Delimiter
+
 while Keyword
 
 ( Delimiter
@@ -5,6 +25,26 @@ while Keyword
 ) Delimiter
 
 { Delimiter
+
+write Keyword
+
+( Delimiter
+
+a Identifier
+
+[ Delimiter
+
+a Identifier
+
+] Delimiter
+
+, Delimiter
+
+ String
+
+) Delimiter
+
+; Delimiter
 
 } Delimiter
 
@@ -91,6 +131,26 @@ while Keyword
 } Delimiter
 
 } Delimiter
+
+write Keyword
+
+( Delimiter
+
+a Identifier
+
+[ Delimiter
+
+a Identifier
+
+] Delimiter
+
+, Delimiter
+
+ String
+
+) Delimiter
+
+; Delimiter
 
  
  ERROR:  

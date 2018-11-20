@@ -27,9 +27,11 @@ public class Parsing {
                 case Keyword:
                     switch (((Token)tokenList.get(i)).getLexeme()){
                         case "if":
-                            return ifelseStructure ();
+                            ifelseStructure ();
+                            break;
                         case "while":
-                            return whileStructure ();
+                            whileStructure ();
+                            break;
                         case "write":
                             writeStructure();
                             break;
@@ -42,7 +44,7 @@ public class Parsing {
         return false;
     }
     
-    public boolean ifelseStructure (){ //Recebe posição do token na lista de tokens
+    private void ifelseStructure (){ //Recebe posição do token na lista de tokens
         Stack ifStructureStack = new Stack ();
         ifStructureStack.add(((Token)tokenList.get(i)));
         i++;
@@ -97,15 +99,15 @@ public class Parsing {
                     }
                     if (elseStructureStack.isEmpty()){
                         System.out.println("SUCESSO em else");
+                        controllerParsing();
                     }
                 }
             }
-            return controllerParsing(); 
+            controllerParsing();
         }
-        return false;
     }
     
-    public boolean whileStructure (){
+    private void whileStructure (){
         Stack whileStructureStack = new Stack ();
         whileStructureStack.add(((Token)tokenList.get(i)));
         i++;
@@ -133,9 +135,8 @@ public class Parsing {
         }
         if (whileStructureStack.isEmpty()){
             System.out.println("SUCESSO em while.");
-            return controllerParsing(); 
+            controllerParsing();
         }
-        return false;
     }
     
     private void writeStructure() {
@@ -163,18 +164,19 @@ public class Parsing {
         }
         if (writeStructureStack.isEmpty()){
            System.out.println("SUCESSO em write.");
+           controllerParsing();
         }
     }
   
     
     private void parameterStructure() {
-        if("Identifier".equals(((Token)tokenList.get(i)).getType())){
+        if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
             i++;
             arrayStructure();
             attributeStructure();
             write2Structure();
         }
-        else if("String".equals(((Token)tokenList.get(i)).getType())){
+        else if(Type.String.equals(((Token)tokenList.get(i)).getType())){
             write2Structure();
         }
     }
