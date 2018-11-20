@@ -1,4 +1,2 @@
-if(3>2) then {
-	if(3>2) then {}
-}
+if(3>2) then {if ()then{}}
 else{}
