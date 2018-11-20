@@ -152,6 +152,22 @@ a Identifier
 
 ; Delimiter
 
+const Keyword
+
+{ Delimiter
+
+int Keyword
+
+i Identifier
+
+= RelationalOperator
+
+2 Number
+
+; Delimiter
+
+} Delimiter
+
  
  ERROR:  
 

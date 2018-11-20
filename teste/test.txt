@@ -11,3 +11,4 @@ else{if ()then{}else{}}while(){while(){}while(){}}
 write(a[a], "");
 
 
+ const {int i = 2;}

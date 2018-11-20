@@ -37,6 +37,9 @@ public class Parsing {
                             break;
                         case "read":
                             break;
+                        case "const":
+                            constStructure();
+                            break;
                     }
             }
             return true;
@@ -139,6 +142,65 @@ public class Parsing {
         }
     }
     
+    private void constStructure(){
+        Stack constStructureStack = new Stack ();
+        constStructureStack.add(((Token)tokenList.get(i)));
+        i++;
+        if ("{".equals(((Token)tokenList.get(i)).getLexeme())){ 
+            constStructureStack.add(((Token)tokenList.get(i)));
+            i++;
+            while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
+                constDeclarationStructure();
+            }
+            if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                constStructureStack.pop(); //Desempilha '}'
+                constStructureStack.pop(); //Desempilha 'const'
+                i++;
+            }
+        }
+        if (constStructureStack.isEmpty()){
+            System.out.println("SUCESSO em const.");
+            controllerParsing();
+        }
+    }
+    
+    private void constDeclarationStructure(){
+        if(Type.Keyword.equals(((Token)tokenList.get(i)).getType())){
+            if(keywordType(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                moreConstStructure();
+                if (";".equals(((Token)tokenList.get(i)).getLexeme())){
+                    i++;
+                    if (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){ 
+                        constDeclarationStructure();
+                    }
+                }
+            }
+        }
+    }
+    
+    private void moreConstStructure(){
+        if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+            if ("=".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                if((Type.Identifier.equals(((Token)tokenList.get(i)).getType())) ||
+                (Type.Number.equals(((Token)tokenList.get(i)).getType())) ||
+                ("true".equals(((Token)tokenList.get(i)).getLexeme())) ||
+                ("false".equals(((Token)tokenList.get(i)).getLexeme()))){
+                    i++;
+                    if (",".equals(((Token)tokenList.get(i)).getLexeme())){
+                        moreConstStructure();
+                    }
+                }
+            }
+        }
+    }
+    
+    private boolean keywordType(String lexeme){
+        return (lexeme.equals("int")) || (lexeme.equals("float")) || (lexeme.equals("bool")) || (lexeme.equals("string")) || (lexeme.equals("void"));
+    } //Verifica se é uma keyword de tipagem
+    
     private void writeStructure() {
         Stack writeStructureStack = new Stack ();
         writeStructureStack.add(((Token)tokenList.get(i)));
@@ -167,7 +229,6 @@ public class Parsing {
            controllerParsing();
         }
     }
-  
     
     private void parameterStructure() {
         if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
@@ -181,14 +242,12 @@ public class Parsing {
         }
     }
     
-    
     private void write2Structure() {
         if(",".equals(((Token)tokenList.get(i)).getLexeme())){
             i++;
             parameterStructure();
         }
     }
-    
     
     private void attributeStructure() {
         if(".".equals(((Token)tokenList.get(i)).getLexeme())){
