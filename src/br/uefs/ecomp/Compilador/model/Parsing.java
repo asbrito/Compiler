@@ -31,6 +31,7 @@ public class Parsing {
                         case "while":
                             return whileStructure ();
                         case "write":
+                            writeStructure();
                             break;
                         case "read":
                             break;
@@ -135,5 +136,82 @@ public class Parsing {
             return controllerParsing(); 
         }
         return false;
+    }
+    
+    private void writeStructure() {
+        Stack writeStructureStack = new Stack ();
+        writeStructureStack.add(((Token)tokenList.get(i)));
+        i++;
+        if ("(".equals(((Token)tokenList.get(i)).getLexeme())){ 
+            writeStructureStack.add(((Token)tokenList.get(i)));
+            i++;
+
+            while (!(")".equals(((Token)tokenList.get(i)).getLexeme()))){
+                i++;
+                parameterStructure();
+            }
+
+            if (")".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                writeStructureStack.pop();
+                i++;
+
+                if (";".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                    writeStructureStack.pop();
+                    i++;
+                }
+            }
+        }
+        if (writeStructureStack.isEmpty()){
+           System.out.println("SUCESSO em write.");
+        }
+    }
+  
+    
+    private void parameterStructure() {
+        if("Identifier".equals(((Token)tokenList.get(i)).getType())){
+            i++;
+            arrayStructure();
+            attributeStructure();
+            write2Structure();
+        }
+        else if("String".equals(((Token)tokenList.get(i)).getType())){
+            write2Structure();
+        }
+    }
+    
+    
+    private void write2Structure() {
+        if(",".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+            parameterStructure();
+        }
+    }
+    
+    
+    private void attributeStructure() {
+        if(".".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+            arrayStructure();
+            attributeStructure();
+        }
+    }
+
+    private void arrayStructure() {
+        if("[".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+            while (!("]".equals(((Token)tokenList.get(i)).getLexeme()))){i++;}
+            //chamar metodo de expressoes aritimeticas
+            if("]".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+            }
+        }
+        if("[".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+            while (!("]".equals(((Token)tokenList.get(i)).getLexeme()))){i++;}
+            //chamar metodo de expressoes aritimeticas
+            if("]".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+            }
+        }   
     }
 }
