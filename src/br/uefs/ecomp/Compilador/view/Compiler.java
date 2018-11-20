@@ -26,7 +26,7 @@ public class Compiler {
         LinkedList l = lexical.getTokenList();
         Parsing parser = new Parsing(l);
         
-        parser.controllerParsing(0);
+        parser.controllerParsing();
     }
     
 }

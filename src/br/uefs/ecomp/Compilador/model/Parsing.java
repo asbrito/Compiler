@@ -13,18 +13,20 @@ import java.util.Stack;
  * @author nati_
  */
 public class Parsing {
-    LinkedList tokenList;
+    private LinkedList tokenList;
+    private int i;
     public Parsing(LinkedList tokenList) {
         this.tokenList = tokenList;
+        this.i = 0;
     }
     
-    public int controllerParsing(int i){
+    public int controllerParsing(){
         Type type;
         switch(((Token)tokenList.get(i)).getType()){
             case Keyword:
                 switch (((Token)tokenList.get(i)).getLexeme()){
                     case "if":
-                        i = ifelseStructure (i);
+                        i = ifelseStructure ();
                         return i;
                     case "while":
                         break;
@@ -38,7 +40,7 @@ public class Parsing {
         return i;
     }
     
-    public int ifelseStructure (int i){ //Recebe posição do token na lista de tokens
+    public int ifelseStructure (){ //Recebe posição do token na lista de tokens
         Stack ifStructureStack = new Stack ();
         ifStructureStack.add(((Token)tokenList.get(i)));
         i++;
@@ -59,7 +61,7 @@ public class Parsing {
                         ifStructureStack.add(((Token)tokenList.get(i)));
                         i++;
                         while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
-                            i = controllerParsing(i);
+                            i = controllerParsing();
                         }
                         if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
                             ifStructureStack.pop(); //Desempilha '}'
