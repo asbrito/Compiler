@@ -20,27 +20,28 @@ public class Parsing {
         this.i = 0;
     }
     
-    public int controllerParsing(){
+    public boolean controllerParsing(){
         Type type;
-        switch(((Token)tokenList.get(i)).getType()){
-            case Keyword:
-                switch (((Token)tokenList.get(i)).getLexeme()){
-                    case "if":
-                        i = ifelseStructure ();
-                        return i;
-                    case "while":
-                        break;
-                    case "write":
-                        break;
-                    case "read":
-                        break;
-                }
-            return i;
+        while(tokenList.size() > i){
+            switch(((Token)tokenList.get(i)).getType()){
+                case Keyword:
+                    switch (((Token)tokenList.get(i)).getLexeme()){
+                        case "if":
+                            return ifelseStructure ();
+                        case "while":
+                            return whileStructure ();
+                        case "write":
+                            break;
+                        case "read":
+                            break;
+                    }
+            }
+            return true;
         }
-        return i;
+        return false;
     }
     
-    public int ifelseStructure (){ //Recebe posição do token na lista de tokens
+    public boolean ifelseStructure (){ //Recebe posição do token na lista de tokens
         Stack ifStructureStack = new Stack ();
         ifStructureStack.add(((Token)tokenList.get(i)));
         i++;
@@ -61,7 +62,7 @@ public class Parsing {
                         ifStructureStack.add(((Token)tokenList.get(i)));
                         i++;
                         while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
-                            i = controllerParsing();
+                            controllerParsing();
                         }
                         if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
                             ifStructureStack.pop(); //Desempilha '}'
@@ -84,7 +85,7 @@ public class Parsing {
                         elseStructureStack.add(((Token)tokenList.get(i)));
                         i++;
                         while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
-                            i++;
+                            controllerParsing();
                         }
 
                         if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
@@ -98,9 +99,41 @@ public class Parsing {
                     }
                 }
             }
-            return i; // retorna lugar que parou
+            return controllerParsing(); 
         }
-        return 0;
+        return false;
     }
     
+    public boolean whileStructure (){
+        Stack whileStructureStack = new Stack ();
+        whileStructureStack.add(((Token)tokenList.get(i)));
+        i++;
+
+        if ("(".equals(((Token)tokenList.get(i)).getLexeme())){ 
+            whileStructureStack.add(((Token)tokenList.get(i)));
+            i++;
+            while (!(")".equals(((Token)tokenList.get(i)).getLexeme()))){i++;}
+            if (")".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                whileStructureStack.pop();
+                i++;
+                if ("{".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                    whileStructureStack.add(((Token)tokenList.get(i)));
+                    i++;
+                    while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
+                        controllerParsing();
+                    }
+                    if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                        whileStructureStack.pop(); //Desempilha '}'
+                        whileStructureStack.pop(); //Desempilha 'while'
+                        i++;
+                    }
+                }
+            }
+        }
+        if (whileStructureStack.isEmpty()){
+            System.out.println("SUCESSO em while.");
+            return controllerParsing(); 
+        }
+        return false;
+    }
 }
