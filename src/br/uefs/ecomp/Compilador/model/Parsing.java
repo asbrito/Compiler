@@ -36,6 +36,7 @@ public class Parsing {
                             writeStructure();
                             break;
                         case "read":
+                            readStructure();
                             break;
                         case "const":
                             constStructure();
@@ -202,6 +203,7 @@ public class Parsing {
         return (lexeme.equals("int")) || (lexeme.equals("float")) || (lexeme.equals("bool")) || (lexeme.equals("string")) || (lexeme.equals("void"));
     } //Verifica se é uma keyword de tipagem
     
+    
     private void writeStructure() {
         Stack writeStructureStack = new Stack ();
         writeStructureStack.add(((Token)tokenList.get(i)));
@@ -212,7 +214,7 @@ public class Parsing {
 
             while (!(")".equals(((Token)tokenList.get(i)).getLexeme()))){
                 i++;
-                parameterStructure();
+                writeparameterStructure();
             }
 
             if (")".equals(((Token)tokenList.get(i)).getLexeme())){ 
@@ -231,7 +233,38 @@ public class Parsing {
         }
     }
     
-    private void parameterStructure() {
+    
+    private void readStructure() {
+        Stack readStructureStack = new Stack ();
+        readStructureStack.add(((Token)tokenList.get(i)));
+        i++;
+        if ("(".equals(((Token)tokenList.get(i)).getLexeme())){ 
+            readStructureStack.add(((Token)tokenList.get(i)));
+            i++;
+
+            while (!(")".equals(((Token)tokenList.get(i)).getLexeme()))){
+                i++;
+                readparameterStructure();
+            }
+
+            if (")".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                readStructureStack.pop();
+                i++;
+
+                if (";".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                    readStructureStack.pop();
+                    i++;
+                }
+            }
+        }
+        if (readStructureStack.isEmpty()){
+           System.out.println("SUCESSO em read.");
+           controllerParsing();
+        }
+    }
+    
+    
+    private void writeparameterStructure() {
         if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
             i++;
             arrayStructure();
@@ -243,10 +276,26 @@ public class Parsing {
         }
     }
     
+    private void readparameterStructure() {
+        if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+            arrayStructure();
+            attributeStructure();
+            read2Structure();
+        }
+    }
+    
     private void write2Structure() {
         if(",".equals(((Token)tokenList.get(i)).getLexeme())){
             i++;
-            parameterStructure();
+            writeparameterStructure();
+        }
+    }
+    
+    private void read2Structure() {
+        if(",".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+            readparameterStructure();
         }
     }
     

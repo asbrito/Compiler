@@ -2,6 +2,7 @@
 
 
 
+
 write(a[a], "");
 
 
@@ -25,3 +26,4 @@ write(a[a], "");
 
 
  const {int i = 2;}
+if()then{}
