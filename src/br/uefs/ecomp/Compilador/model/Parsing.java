@@ -445,4 +445,206 @@ public class Parsing {
             }
         }   
     }
+    
+    private void globalStructure(){
+        constStructure();
+        classStructure();
+        moreClassesStructure();
+    }
+    
+    private void classStructure() {
+        i++;
+        if((Type.Identifier.equals(((Token)tokenList.get(i)).getType()))){
+            i++;
+            if("extends".equals(((Token)tokenList.get(i)).getType())){
+                i++;
+                if((Type.Identifier.equals(((Token)tokenList.get(i)).getType()))){
+                    i++;
+                }
+            }
+            if ("{".equals(((Token)tokenList.get(i)).getLexeme())){
+                //variables 
+                //metodos
+                if ("}".equals(((Token)tokenList.get(i)).getLexeme())){
+                    System.out.println("SUCESSO em classe");
+                }
+            }
+        }
+    }
+    
+    private void moreClassesStructure() {
+        classStructure();
+        moreClassesStructure();
+    }
+    
+    private void expressionStructure(){
+        addStructure();
+        relacionalStructure();
+    }
+    
+    private void relacionalStructure() {
+        i++;
+        if(Type.RelationalOperator.equals(((Token)tokenList.get(i)).getType())){
+            addStructure();
+            logicalStructure();
+        }
+        else {
+            logicalStructure();
+        }
+            
+    }
+
+    private void logicalStructure() {
+        i++;
+        if("||".equals(((Token)tokenList.get(i)).getLexeme())){
+            expressionStructure();
+        }
+        else if("&&".equals(((Token)tokenList.get(i)).getLexeme())){
+            expressionStructure();
+        }
+        else i--;
+    }
+
+    private void addStructure() {
+        multStrucute();
+        dStructure();
+    }
+    
+    private void dStructure() {
+        i++;
+        if("+".equals(((Token)tokenList.get(i)).getLexeme())){
+            addStructure();
+        }
+        else if("-".equals(((Token)tokenList.get(i)).getLexeme())){
+            addStructure();
+        }
+        else i--;
+    }
+    
+    private void multStrucute() {
+        negStrucute();
+        eStructure();
+    } 
+
+    private void eStructure() {
+        i++;
+        if("*".equals(((Token)tokenList.get(i)).getLexeme())){
+            multStrucute();
+        }
+        else if("/".equals(((Token)tokenList.get(i)).getLexeme())){
+            multStrucute();
+        }
+        else i--;
+    }
+
+    private void negStrucute() {
+        i++;
+        String a = (((Token)tokenList.get(i)).getLexeme());
+        switch (a){
+            case "-":
+                expValueStructure();
+                break;
+            case "++":
+                expValueStructure();
+                break;
+            case "!":
+                expValueStructure();
+                break;
+            case "--":
+                expValueStructure();
+                break;
+            default:
+                expValueStructure();
+                gStructure();
+                break;
+        }
+
+    }
+    
+    private void gStructure() {
+        i++;
+        if("--".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+        }
+        else if("--".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+        }
+    }
+    
+    private void expValueStructure() {
+        i++;
+        if(Type.Number.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+        }
+        else if("(".equals(((Token)tokenList.get(i)).getLexeme())){
+            expressionStructure();
+            i++;
+            if(")".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+            }
+        }
+        else if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            arrayStructure();
+            attributeStructure();
+            complementStructure();
+        }
+        else if("true".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+        }
+        else if("false".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+        }
+    }
+
+    private void complementStructure() {
+        i++;
+        if("(".equals(((Token)tokenList.get(i)).getLexeme())){
+            ParamStrucuture();
+            i++;
+            if(")".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+            }
+        }
+        else i--;
+    }
+
+    private void ParamStrucuture() {
+        i++;
+        if(Type.String.equals(((Token)tokenList.get(i)).getType())){
+            moreParamSctruture();
+        }
+        else if("-".equals(((Token)tokenList.get(i)).getLexeme())  || 
+            "--".equals(((Token)tokenList.get(i)).getLexeme()) ||
+            "!".equals(((Token)tokenList.get(i)).getLexeme())  ||
+            "(".equals(((Token)tokenList.get(i)).getLexeme())  ||
+            "++".equals(((Token)tokenList.get(i)).getLexeme()) ||
+            "false".equals(((Token)tokenList.get(i)).getLexeme())  || 
+            "true".equals(((Token)tokenList.get(i)).getLexeme())   ||
+            Type.Identifier.equals(((Token)tokenList.get(i)).getType())||
+            Type.Number.equals(((Token)tokenList.get(i)).getType()))
+        {
+            expressionStructure();
+            moreParamSctruture();
+        }
+        else i--;
+    }
+
+    private void moreParamSctruture() {
+        i++;
+        if(",".equals(((Token)tokenList.get(i)).getLexeme())){
+            obrigatoryParamStrucuture();
+        }
+        else i--;
+    }
+
+    private void obrigatoryParamStrucuture() {
+        i++;
+        if(Type.String.equals(((Token)tokenList.get(i)).getType())){
+            moreParamSctruture();
+        }
+        else {
+            expressionStructure();
+            moreParamSctruture();
+        }
+    }        
 }
