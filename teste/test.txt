@@ -1,5 +1,5 @@
 
-
+method int amem (int a, int b, Cidade estrada){
 
 
 
@@ -13,7 +13,7 @@ while(){
 
 
 
-write(a[a], "");}if(3>2) then {if ()then{}}
+write(a[a], "");}if(3>2) then {if ()then{read(jrhfahfh);}}
 
 else{if ()then{}else{}}while(){while(){}while(){}}
 
@@ -26,4 +26,6 @@ write(a[a], "");
 
 
  const {int i = 2;}
-if()then{}
+if()then{}}
+
+method int amem (int a, int b){}

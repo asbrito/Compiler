@@ -1,3 +1,31 @@
+method Keyword
+
+int Keyword
+
+amem Identifier
+
+( Delimiter
+
+int Keyword
+
+a Identifier
+
+, Delimiter
+
+int Keyword
+
+b Identifier
+
+, Delimiter
+
+Cidade Identifier
+
+estrada Identifier
+
+) Delimiter
+
+{ Delimiter
+
 write Keyword
 
 ( Delimiter
@@ -73,6 +101,16 @@ if Keyword
 then Keyword
 
 { Delimiter
+
+read Keyword
+
+( Delimiter
+
+jrhfahfh Identifier
+
+) Delimiter
+
+; Delimiter
 
 } Delimiter
 
@@ -175,6 +213,32 @@ if Keyword
 ) Delimiter
 
 then Keyword
+
+{ Delimiter
+
+} Delimiter
+
+} Delimiter
+
+method Keyword
+
+int Keyword
+
+amem Identifier
+
+( Delimiter
+
+int Keyword
+
+a Identifier
+
+, Delimiter
+
+int Keyword
+
+b Identifier
+
+) Delimiter
 
 { Delimiter
 

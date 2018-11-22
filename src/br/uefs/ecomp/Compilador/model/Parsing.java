@@ -41,11 +41,73 @@ public class Parsing {
                         case "const":
                             constStructure();
                             break;
+                        case "method":
+                            methodDeclarationStructure ();
+                            break;
                     }
             }
             return true;
         }
         return false;
+    }
+    
+    private void methodDeclarationStructure (){
+        if ("method".equals(((Token)tokenList.get(i)).getLexeme())){ 
+            i++;
+            if(Type.Keyword.equals(((Token)tokenList.get(i)).getType())){
+                if(keywordType(((Token)tokenList.get(i)).getLexeme())){
+                    i++;
+                    if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+                        i++;
+                        if ("(".equals(((Token)tokenList.get(i)).getLexeme())){
+                            i++;
+                            while (!(")".equals(((Token)tokenList.get(i)).getLexeme()))){
+                                methodParameterDeclarationStructure ();
+                            }
+                            if (")".equals(((Token)tokenList.get(i)).getLexeme())){
+                                i++;
+                                if ("{".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                                    i++;
+                                    while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
+                                        controllerParsing();
+                                    }
+                                    if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                                        System.out.println("sucesso em method.");
+                                        i++;
+                                        controllerParsing();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void methodParameterDeclarationStructure (){
+        if(Type.Keyword.equals(((Token)tokenList.get(i)).getType())){
+            if(keywordType(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+                    i++;
+                    if (",".equals(((Token)tokenList.get(i)).getLexeme())){
+                        i++;
+                        methodParameterDeclarationStructure();
+                    }
+                }
+            }
+        }
+        else if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+            if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+                i++;
+                if (",".equals(((Token)tokenList.get(i)).getLexeme())){
+                    i++;
+                    methodParameterDeclarationStructure();
+                }
+            } 
+        }
     }
     
     private void ifelseStructure (){ //Recebe posição do token na lista de tokens
@@ -198,11 +260,9 @@ public class Parsing {
         }
     }
     
-  
     private boolean keywordType(String lexeme){
         return (lexeme.equals("int")) || (lexeme.equals("float")) || (lexeme.equals("bool")) || (lexeme.equals("string")) || (lexeme.equals("void"));
     } //Verifica se é uma keyword de tipagem
-    
     
     private void writeStructure() {
         Stack writeStructureStack = new Stack ();
@@ -233,7 +293,6 @@ public class Parsing {
         }
     }
     
-    
     private void readStructure() {
         Stack readStructureStack = new Stack ();
         readStructureStack.add(((Token)tokenList.get(i)));
@@ -262,7 +321,6 @@ public class Parsing {
            controllerParsing();
         }
     }
-    
     
     private void writeparameterStructure() {
         if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
