@@ -53,7 +53,7 @@ public class Parsing {
         }
         return false;
     }
-    
+
     private void methodDeclarationStructure (){
         if ("method".equals(((Token)tokenList.get(i)).getLexeme())){ 
             i++;
@@ -304,6 +304,7 @@ public class Parsing {
                 i++;
                 if((Type.Identifier.equals(((Token)tokenList.get(i)).getType())) ||
                 (Type.Number.equals(((Token)tokenList.get(i)).getType())) ||
+                (Type.String.equals(((Token)tokenList.get(i)).getType())) ||
                 ("true".equals(((Token)tokenList.get(i)).getLexeme())) ||
                 ("false".equals(((Token)tokenList.get(i)).getLexeme()))){
                     i++;
