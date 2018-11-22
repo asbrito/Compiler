@@ -1,14 +1,27 @@
 
 
+
+
 write(a[a], "");
+
+
+
 
 
 while(){
 
+
+
 write(a[a], "");}if(3>2) then {if ()then{}}
+
 else{if ()then{}else{}}while(){while(){}while(){}}
 
+
+
 write(a[a], "");
+
+
+
 
 
  const {int i = 2;}

@@ -13,7 +13,7 @@ import java.util.Stack;
  * @author nati_
  */
 public class Parsing {
-    private LinkedList tokenList;
+    private final LinkedList tokenList;
     private int i;
     public Parsing(LinkedList tokenList) {
         this.tokenList = tokenList;
@@ -82,7 +82,7 @@ public class Parsing {
         
         if (ifStructureStack.isEmpty()){
             System.out.println("SUCESSO em if.");
-            if (!(tokenList.isEmpty())){
+            if (tokenList.size() > i){
                 if("else".equals(((Token)tokenList.get(i)).getLexeme())){
                     Stack elseStructureStack = new Stack ();
                     elseStructureStack.add(((Token)tokenList.get(i)));
@@ -197,6 +197,7 @@ public class Parsing {
         }
     }
     
+  
     private boolean keywordType(String lexeme){
         return (lexeme.equals("int")) || (lexeme.equals("float")) || (lexeme.equals("bool")) || (lexeme.equals("string")) || (lexeme.equals("void"));
     } //Verifica se é uma keyword de tipagem
