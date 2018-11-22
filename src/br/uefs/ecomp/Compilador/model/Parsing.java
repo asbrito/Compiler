@@ -21,7 +21,8 @@ public class Parsing {
     }
     
     public boolean controllerParsing(){
-        Type type;
+        expressionStructure();
+        /*Type type;
         while(tokenList.size() > i){
             switch(((Token)tokenList.get(i)).getType()){
                 case Keyword:
@@ -50,7 +51,7 @@ public class Parsing {
                     }
             }
             return true;
-        }
+        }*/
         return false;
     }
 
@@ -483,8 +484,9 @@ public class Parsing {
     }
     
     private void relacionalStructure() {
-        i++;
+        
         if(Type.RelationalOperator.equals(((Token)tokenList.get(i)).getType())){
+            i++;
             addStructure();
             logicalStructure();
         }
@@ -495,14 +497,14 @@ public class Parsing {
     }
 
     private void logicalStructure() {
-        i++;
         if("||".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
             expressionStructure();
         }
         else if("&&".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
             expressionStructure();
         }
-        else i--;
     }
 
     private void addStructure() {
@@ -511,14 +513,14 @@ public class Parsing {
     }
     
     private void dStructure() {
-        i++;
         if("+".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
             addStructure();
         }
         else if("-".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
             addStructure();
         }
-        else i--;
     }
     
     private void multStrucute() {
@@ -527,19 +529,19 @@ public class Parsing {
     } 
 
     private void eStructure() {
-        i++;
         if("*".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
             multStrucute();
         }
         else if("/".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
             multStrucute();
         }
-        else i--;
     }
 
     private void negStrucute() {
-        i++;
         String a = (((Token)tokenList.get(i)).getLexeme());
+        i++;
         switch (a){
             case "-":
                 expValueStructure();
@@ -558,11 +560,9 @@ public class Parsing {
                 gStructure();
                 break;
         }
-
     }
     
     private void gStructure() {
-        i++;
         if("--".equals(((Token)tokenList.get(i)).getLexeme())){
             i++;
         }
@@ -572,18 +572,18 @@ public class Parsing {
     }
     
     private void expValueStructure() {
-        i++;
         if(Type.Number.equals(((Token)tokenList.get(i)).getType())){
             i++;
         }
         else if("(".equals(((Token)tokenList.get(i)).getLexeme())){
-            expressionStructure();
             i++;
+            expressionStructure();
             if(")".equals(((Token)tokenList.get(i)).getLexeme())){
                 i++;
             }
         }
         else if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            i++;
             arrayStructure();
             attributeStructure();
             complementStructure();
@@ -597,20 +597,18 @@ public class Parsing {
     }
 
     private void complementStructure() {
-        i++;
         if("(".equals(((Token)tokenList.get(i)).getLexeme())){
-            ParamStrucuture();
             i++;
+            ParamStrucuture();
             if(")".equals(((Token)tokenList.get(i)).getLexeme())){
                 i++;
             }
         }
-        else i--;
     }
 
     private void ParamStrucuture() {
-        i++;
         if(Type.String.equals(((Token)tokenList.get(i)).getType())){
+            i++;
             moreParamSctruture();
         }
         else if("-".equals(((Token)tokenList.get(i)).getLexeme())  || 
@@ -626,20 +624,18 @@ public class Parsing {
             expressionStructure();
             moreParamSctruture();
         }
-        else i--;
     }
 
     private void moreParamSctruture() {
-        i++;
         if(",".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
             obrigatoryParamStrucuture();
         }
-        else i--;
     }
 
     private void obrigatoryParamStrucuture() {
-        i++;
         if(Type.String.equals(((Token)tokenList.get(i)).getType())){
+            i++;
             moreParamSctruture();
         }
         else {
