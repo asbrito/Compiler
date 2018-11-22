@@ -10,7 +10,7 @@ import java.util.Stack;
 
 /**
  *
- * @author nati_
+ * @author Natália Rosa e Adriel Brito
  */
 public class Parsing {
     private final LinkedList tokenList;
@@ -43,6 +43,9 @@ public class Parsing {
                             break;
                         case "method":
                             methodDeclarationStructure ();
+                            break;
+                        case "variables":
+                            variableStructure();
                             break;
                     }
             }
@@ -205,6 +208,58 @@ public class Parsing {
         }
     }
     
+    private void variableStructure(){
+        i++;
+        if ("{".equals(((Token)tokenList.get(i)).getLexeme())){ 
+            i++;
+            while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
+                variableDeclarationStructure();
+            }
+            if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                i++;
+                System.out.println("SUCESSO em variables.");
+                controllerParsing();
+            }
+        }
+    }
+    
+    private void variableDeclarationStructure(){
+        if(Type.Keyword.equals(((Token)tokenList.get(i)).getType())){
+            if(keywordType(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                moreVariableStructure();
+                if (";".equals(((Token)tokenList.get(i)).getLexeme())){
+                    i++;
+                    if (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){ 
+                        variableDeclarationStructure();
+                    }
+                }
+            }
+        }
+        else if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+            moreVariableStructure();
+            if (";".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                if (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){ 
+                    variableDeclarationStructure();
+                }
+            }
+        }
+    }
+    
+    private void moreVariableStructure(){
+        if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+            arrayStructure();
+            attributeStructure();
+            if (",".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                moreVariableStructure();
+            }
+        }
+    }
+    
     private void constStructure(){
         Stack constStructureStack = new Stack ();
         constStructureStack.add(((Token)tokenList.get(i)));
@@ -253,6 +308,7 @@ public class Parsing {
                 ("false".equals(((Token)tokenList.get(i)).getLexeme()))){
                     i++;
                     if (",".equals(((Token)tokenList.get(i)).getLexeme())){
+                        i++;
                         moreConstStructure();
                     }
                 }
@@ -360,8 +416,13 @@ public class Parsing {
     private void attributeStructure() {
         if(".".equals(((Token)tokenList.get(i)).getLexeme())){
             i++;
-            arrayStructure();
-            attributeStructure();
+            if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+                i++;
+                arrayStructure();
+                attributeStructure();
+            }else{
+                System.out.println("Falha na chamada do atributo.");
+            }
         }
     }
 

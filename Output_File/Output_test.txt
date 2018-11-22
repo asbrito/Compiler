@@ -244,6 +244,72 @@ b Identifier
 
 } Delimiter
 
+variables Keyword
+
+{ Delimiter
+
+int Keyword
+
+a Identifier
+
+, Delimiter
+
+b Identifier
+
+[ Delimiter
+
+2 Number
+
+] Delimiter
+
+; Delimiter
+
+float Keyword
+
+b Identifier
+
+. Delimiter
+
+e Identifier
+
+; Delimiter
+
+} Delimiter
+
+const Keyword
+
+{ Delimiter
+
+int Keyword
+
+i Identifier
+
+= RelationalOperator
+
+2 Number
+
+, Delimiter
+
+i Identifier
+
+= RelationalOperator
+
+3 Number
+
+; Delimiter
+
+float Keyword
+
+b Identifier
+
+= RelationalOperator
+
+5 Number
+
+; Delimiter
+
+} Delimiter
+
  
  ERROR:  
 
