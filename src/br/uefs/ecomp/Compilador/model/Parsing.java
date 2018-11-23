@@ -15,46 +15,155 @@ import java.util.Stack;
 public class Parsing {
     private final LinkedList tokenList;
     private int i;
+    
     public Parsing(LinkedList tokenList) {
         this.tokenList = tokenList;
         this.i = 0;
     }
     
     public boolean controllerParsing(){
-        expressionStructure();
-        /*Type type;
-        while(tokenList.size() > i){
-            switch(((Token)tokenList.get(i)).getType()){
-                case Keyword:
-                    switch (((Token)tokenList.get(i)).getLexeme()){
-                        case "if":
-                            ifelseStructure ();
-                            break;
-                        case "while":
-                            whileStructure ();
-                            break;
-                        case "write":
-                            writeStructure();
-                            break;
-                        case "read":
-                            readStructure();
-                            break;
-                        case "const":
-                            constStructure();
-                            break;
-                        case "method":
-                            methodDeclarationStructure ();
-                            break;
-                        case "variables":
-                            variableStructure();
-                            break;
-                    }
-            }
-            return true;
-        }*/
+        globalStructure();
         return false;
     }
 
+    private void globalStructure(){
+        constStructure();
+        classStructure();
+        moreClassesStructure();
+    }
+    
+    private void constStructure(){
+        Stack constStructureStack = new Stack ();
+        constStructureStack.add(((Token)tokenList.get(i)));
+        if("const".equals(((Token)tokenList.get(i)).getLexeme())){
+            if ("{".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                constStructureStack.add(((Token)tokenList.get(i)));
+                i++;
+                while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
+                    constDeclarationStructure();
+                }
+                if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                    constStructureStack.pop(); //Desempilha '}'
+                    constStructureStack.pop(); //Desempilha 'const'
+                    i++;
+                }
+            }
+        }
+        if (constStructureStack.isEmpty()){
+            System.out.println("SUCESSO em const.");
+            controllerParsing();
+        }
+    }
+    
+    private void constDeclarationStructure(){
+        if(keywordType(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+            moreConstStructure();
+            if (";".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                if (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){ 
+                    constDeclarationStructure();
+                }
+            }
+        }
+    }
+    
+    private void moreConstStructure(){
+        if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+            if ("=".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                if((Type.Identifier.equals(((Token)tokenList.get(i)).getType())) ||
+                (Type.Number.equals(((Token)tokenList.get(i)).getType())) ||
+                (Type.String.equals(((Token)tokenList.get(i)).getType())) ||
+                ("true".equals(((Token)tokenList.get(i)).getLexeme())) ||
+                ("false".equals(((Token)tokenList.get(i)).getLexeme()))){
+                    i++;
+                    if (",".equals(((Token)tokenList.get(i)).getLexeme())){
+                        i++;
+                        moreConstStructure();
+                    }
+                }
+            }
+        }
+    }
+    
+    private void classStructure() {
+        if((Type.Identifier.equals(((Token)tokenList.get(i)).getType()))){
+            i++;
+            if("extends".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                if((Type.Identifier.equals(((Token)tokenList.get(i)).getType()))){
+                    i++;
+                }
+            }
+            if ("{".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                variableStructure();
+                methodDeclarationStructure();
+                if ("}".equals(((Token)tokenList.get(i)).getLexeme())){
+                    i++;
+                    System.out.println("SUCESSO em classe");
+                }
+            }
+        }
+    }
+    
+    private void moreClassesStructure() {
+        classStructure();
+        moreClassesStructure();
+    }
+    
+    private void variableStructure(){
+        if("variables".equals(((Token)tokenList.get(i)).getLexeme())){
+            if ("{".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                i++;
+                while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
+                    variableDeclarationStructure();
+                }
+                if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
+                    i++;
+                    System.out.println("SUCESSO em variables.");
+                }
+            }
+        }
+    }
+    
+    private void variableDeclarationStructure(){
+        if(keywordType(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+            moreVariableStructure();
+            if (";".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                if (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){ 
+                    variableDeclarationStructure();
+                }
+            }
+        }
+        else if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+            moreVariableStructure();
+            if (";".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                if (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){ 
+                    variableDeclarationStructure();
+                }
+            }
+        }
+    }
+    
+    private void moreVariableStructure(){
+        if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+            arrayStructure();
+            attributeStructure();
+            if (",".equals(((Token)tokenList.get(i)).getLexeme())){
+                i++;
+                moreVariableStructure();
+            }
+        }
+    }
+    
     private void methodDeclarationStructure (){
         if ("method".equals(((Token)tokenList.get(i)).getLexeme())){ 
             i++;
@@ -72,13 +181,13 @@ public class Parsing {
                                 i++;
                                 if ("{".equals(((Token)tokenList.get(i)).getLexeme())){ 
                                     i++;
+                                    variableStructure();
                                     while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
-                                        controllerParsing();
+                                        commandsStructure();
                                     }
                                     if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
                                         System.out.println("sucesso em method.");
                                         i++;
-                                        controllerParsing();
                                     }
                                 }
                             }
@@ -90,15 +199,13 @@ public class Parsing {
     }
 
     private void methodParameterDeclarationStructure (){
-        if(Type.Keyword.equals(((Token)tokenList.get(i)).getType())){
-            if(keywordType(((Token)tokenList.get(i)).getLexeme())){
+        if(keywordType(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+            if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
                 i++;
-                if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+                if (",".equals(((Token)tokenList.get(i)).getLexeme())){
                     i++;
-                    if (",".equals(((Token)tokenList.get(i)).getLexeme())){
-                        i++;
-                        methodParameterDeclarationStructure();
-                    }
+                    methodParameterDeclarationStructure();
                 }
             }
         }
@@ -111,6 +218,103 @@ public class Parsing {
                     methodParameterDeclarationStructure();
                 }
             } 
+        }
+    }
+    
+    private void commandsStructure(){
+        switch (((Token)tokenList.get(i)).getLexeme()){
+            case "if":
+                ifelseStructure ();
+                commandsStructure();
+                break;
+            case "while":
+                whileStructure ();
+                commandsStructure();
+                break;
+            case "write":
+                writeStructure();
+                commandsStructure();
+                break;
+            case "read":
+                readStructure();
+                commandsStructure();
+                break;
+            case "return":
+                returnStructure();
+                commandsStructure();
+        }
+        if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            atributtionStructure();
+            if(";".equals(((Token)tokenList.get(i)).getLexeme())){
+                commandsStructure();
+            }
+            
+        }
+    }
+    
+    private void atributtionStructure() {
+        if("--".equals(((Token)tokenList.get(i)).getLexeme()) ||
+        "++".equals(((Token)tokenList.get(i)).getLexeme())){
+            if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+                i++;
+                arrayStructure();
+                attributeStructure();
+            }
+        }
+        else if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+            arrayStructure();
+            attributeStructure();
+            verificationSctructure(); 
+        }
+    }
+    
+    private void verificationSctructure() {
+        if("(".equals(((Token)tokenList.get(i)).getLexeme())){
+            complementStructure();
+        }
+        else if("--".equals(((Token)tokenList.get(i)).getLexeme()) ||
+        "++".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+        }
+        else if("=".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+            normalAtributtionStructure();
+        }
+    }
+
+    private void normalAtributtionStructure() {
+        if(Type.String.equals(((Token)tokenList.get(i)).getType())){
+            i++;
+        }
+        else if("-".equals(((Token)tokenList.get(i)).getLexeme())  || 
+            "--".equals(((Token)tokenList.get(i)).getLexeme()) ||
+            "!".equals(((Token)tokenList.get(i)).getLexeme())  ||
+            "++".equals(((Token)tokenList.get(i)).getLexeme()) ||
+            "(".equals(((Token)tokenList.get(i)).getLexeme())  ||
+            "false".equals(((Token)tokenList.get(i)).getLexeme())  || 
+            "true".equals(((Token)tokenList.get(i)).getLexeme())   ||
+            Type.Identifier.equals(((Token)tokenList.get(i)).getType())||
+            Type.Number.equals(((Token)tokenList.get(i)).getType()))
+        {
+            expressionStructure();
+        }
+    }
+
+    private void returnStructure() {
+        if("return".equals(((Token)tokenList.get(i)).getLexeme())){
+            if("-".equals(((Token)tokenList.get(i)).getLexeme())|| 
+            "--".equals(((Token)tokenList.get(i)).getLexeme()) ||
+            "!".equals(((Token)tokenList.get(i)).getLexeme())  ||
+            "++".equals(((Token)tokenList.get(i)).getLexeme()) ||
+            "(".equals(((Token)tokenList.get(i)).getLexeme())  ||
+            "false".equals(((Token)tokenList.get(i)).getLexeme())|| 
+            "true".equals(((Token)tokenList.get(i)).getLexeme())||
+            Type.Identifier.equals(((Token)tokenList.get(i)).getType())||
+            Type.Number.equals(((Token)tokenList.get(i)).getType()))
+            {
+                expressionStructure();
+            }
         }
     }
     
@@ -208,120 +412,7 @@ public class Parsing {
             controllerParsing();
         }
     }
-    
-    private void variableStructure(){
-        i++;
-        if ("{".equals(((Token)tokenList.get(i)).getLexeme())){ 
-            i++;
-            while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
-                variableDeclarationStructure();
-            }
-            if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
-                i++;
-                System.out.println("SUCESSO em variables.");
-                controllerParsing();
-            }
-        }
-    }
-    
-    private void variableDeclarationStructure(){
-        if(Type.Keyword.equals(((Token)tokenList.get(i)).getType())){
-            if(keywordType(((Token)tokenList.get(i)).getLexeme())){
-                i++;
-                moreVariableStructure();
-                if (";".equals(((Token)tokenList.get(i)).getLexeme())){
-                    i++;
-                    if (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){ 
-                        variableDeclarationStructure();
-                    }
-                }
-            }
-        }
-        else if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
-            i++;
-            moreVariableStructure();
-            if (";".equals(((Token)tokenList.get(i)).getLexeme())){
-                i++;
-                if (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){ 
-                    variableDeclarationStructure();
-                }
-            }
-        }
-    }
-    
-    private void moreVariableStructure(){
-        if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
-            i++;
-            arrayStructure();
-            attributeStructure();
-            if (",".equals(((Token)tokenList.get(i)).getLexeme())){
-                i++;
-                moreVariableStructure();
-            }
-        }
-    }
-    
-    private void constStructure(){
-        Stack constStructureStack = new Stack ();
-        constStructureStack.add(((Token)tokenList.get(i)));
-        i++;
-        if ("{".equals(((Token)tokenList.get(i)).getLexeme())){ 
-            constStructureStack.add(((Token)tokenList.get(i)));
-            i++;
-            while (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){
-                constDeclarationStructure();
-            }
-            if ("}".equals(((Token)tokenList.get(i)).getLexeme())){ 
-                constStructureStack.pop(); //Desempilha '}'
-                constStructureStack.pop(); //Desempilha 'const'
-                i++;
-            }
-        }
-        if (constStructureStack.isEmpty()){
-            System.out.println("SUCESSO em const.");
-            controllerParsing();
-        }
-    }
-    
-    private void constDeclarationStructure(){
-        if(Type.Keyword.equals(((Token)tokenList.get(i)).getType())){
-            if(keywordType(((Token)tokenList.get(i)).getLexeme())){
-                i++;
-                moreConstStructure();
-                if (";".equals(((Token)tokenList.get(i)).getLexeme())){
-                    i++;
-                    if (!("}".equals(((Token)tokenList.get(i)).getLexeme()))){ 
-                        constDeclarationStructure();
-                    }
-                }
-            }
-        }
-    }
-    
-    private void moreConstStructure(){
-        if(Type.Identifier.equals(((Token)tokenList.get(i)).getType())){
-            i++;
-            if ("=".equals(((Token)tokenList.get(i)).getLexeme())){
-                i++;
-                if((Type.Identifier.equals(((Token)tokenList.get(i)).getType())) ||
-                (Type.Number.equals(((Token)tokenList.get(i)).getType())) ||
-                (Type.String.equals(((Token)tokenList.get(i)).getType())) ||
-                ("true".equals(((Token)tokenList.get(i)).getLexeme())) ||
-                ("false".equals(((Token)tokenList.get(i)).getLexeme()))){
-                    i++;
-                    if (",".equals(((Token)tokenList.get(i)).getLexeme())){
-                        i++;
-                        moreConstStructure();
-                    }
-                }
-            }
-        }
-    }
-    
-    private boolean keywordType(String lexeme){
-        return (lexeme.equals("int")) || (lexeme.equals("float")) || (lexeme.equals("bool")) || (lexeme.equals("string")) || (lexeme.equals("void"));
-    } //Verifica se é uma keyword de tipagem
-    
+
     private void writeStructure() {
         Stack writeStructureStack = new Stack ();
         writeStructureStack.add(((Token)tokenList.get(i)));
@@ -447,44 +538,12 @@ public class Parsing {
         }   
     }
     
-    private void globalStructure(){
-        constStructure();
-        classStructure();
-        moreClassesStructure();
-    }
-    
-    private void classStructure() {
-        i++;
-        if((Type.Identifier.equals(((Token)tokenList.get(i)).getType()))){
-            i++;
-            if("extends".equals(((Token)tokenList.get(i)).getType())){
-                i++;
-                if((Type.Identifier.equals(((Token)tokenList.get(i)).getType()))){
-                    i++;
-                }
-            }
-            if ("{".equals(((Token)tokenList.get(i)).getLexeme())){
-                //variables 
-                //metodos
-                if ("}".equals(((Token)tokenList.get(i)).getLexeme())){
-                    System.out.println("SUCESSO em classe");
-                }
-            }
-        }
-    }
-    
-    private void moreClassesStructure() {
-        classStructure();
-        moreClassesStructure();
-    }
-    
     private void expressionStructure(){
         addStructure();
         relacionalStructure();
     }
     
     private void relacionalStructure() {
-        
         if(Type.RelationalOperator.equals(((Token)tokenList.get(i)).getType())){
             i++;
             addStructure();
@@ -540,25 +599,21 @@ public class Parsing {
     }
 
     private void negStrucute() {
-        String a = (((Token)tokenList.get(i)).getLexeme());
-        i++;
-        switch (a){
-            case "-":
-                expValueStructure();
-                break;
-            case "++":
-                expValueStructure();
-                break;
-            case "!":
-                expValueStructure();
-                break;
-            case "--":
-                expValueStructure();
-                break;
-            default:
-                expValueStructure();
-                gStructure();
-                break;
+        if("-".equals(((Token)tokenList.get(i)).getLexeme())||
+        "!".equals(((Token)tokenList.get(i)).getLexeme())||
+        "++".equals(((Token)tokenList.get(i)).getLexeme())||
+        "--".equals(((Token)tokenList.get(i)).getLexeme())){
+            i++;
+            expValueStructure();
+        }
+        
+        else if("(".equals(((Token)tokenList.get(i)).getLexeme())  ||
+        "false".equals(((Token)tokenList.get(i)).getLexeme())  || 
+        "true".equals(((Token)tokenList.get(i)).getLexeme())   ||
+        Type.Identifier.equals(((Token)tokenList.get(i)).getType())||
+        Type.Number.equals(((Token)tokenList.get(i)).getType())){
+            expValueStructure();
+            gStructure();
         }
     }
     
@@ -614,8 +669,8 @@ public class Parsing {
         else if("-".equals(((Token)tokenList.get(i)).getLexeme())  || 
             "--".equals(((Token)tokenList.get(i)).getLexeme()) ||
             "!".equals(((Token)tokenList.get(i)).getLexeme())  ||
-            "(".equals(((Token)tokenList.get(i)).getLexeme())  ||
             "++".equals(((Token)tokenList.get(i)).getLexeme()) ||
+            "(".equals(((Token)tokenList.get(i)).getLexeme())  ||
             "false".equals(((Token)tokenList.get(i)).getLexeme())  || 
             "true".equals(((Token)tokenList.get(i)).getLexeme())   ||
             Type.Identifier.equals(((Token)tokenList.get(i)).getType())||
@@ -642,5 +697,10 @@ public class Parsing {
             expressionStructure();
             moreParamSctruture();
         }
-    }        
+    }  
+    
+    private boolean keywordType(String lexeme){
+        return (lexeme.equals("int")) || (lexeme.equals("float")) || (lexeme.equals("bool")) || (lexeme.equals("string")) || (lexeme.equals("void"));
+    } //Verifica se é uma keyword de tipagem
+
 }

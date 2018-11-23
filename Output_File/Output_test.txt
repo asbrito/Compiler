@@ -1,8 +1,50 @@
+class Keyword
+
+batata Identifier
+
+{ Delimiter
+
+method Keyword
+
+a Identifier
+
+{ Delimiter
+
+if Keyword
+
+( Delimiter
+
 a Identifier
 
 + ArithmaticOperator
 
 b Identifier
+
+> RelationalOperator
+
+2 Number
+
+) Delimiter
+
+then Keyword
+
+{ Delimiter
+
+read Keyword
+
+( Delimiter
+
+a Identifier
+
+) Delimiter
+
+; Delimiter
+
+} Delimiter
+
+} Delimiter
+
+} Delimiter
 
  
  ERROR:  

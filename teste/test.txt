@@ -1,1 +1,7 @@
-a + b > 2
+class batata{
+	method a{
+		if(a+b>2)then{
+			read(a);	
+		}
+	}
+}
