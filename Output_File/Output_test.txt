@@ -6,7 +6,13 @@ batata Identifier
 
 method Keyword
 
+int Keyword
+
 a Identifier
+
+( Delimiter
+
+) Delimiter
 
 { Delimiter
 
@@ -46,7 +52,86 @@ a Identifier
 
 } Delimiter
 
+class Keyword
+
+xibiu Identifier
+
+{ Delimiter
+
+method Keyword
+
+float Keyword
+
+a Identifier
+
+( Delimiter
+
+) Delimiter
+
+{ Delimiter
+
+while Keyword
+
+( Delimiter
+
+a Identifier
+
+) Delimiter
+
+{ Delimiter
+
+if Keyword
+
+( Delimiter
+
+! LogicalOperator
+
+c Identifier
+
+&& LogicalOperator
+
+( Delimiter
+
+a Identifier
+
+< RelationalOperator
+
+/ ArithmaticOperator
+
+2 Number
+
+) Delimiter
+
+) Delimiter
+
+then Keyword
+
+{ Delimiter
+
+a Identifier
+
+= RelationalOperator
+
+sad Identifier
+
++ ArithmaticOperator
+
+( Delimiter
+
+) Delimiter
+
+; Delimiter
+
+} Delimiter
+
+} Delimiter
+
+} Delimiter
+
+} Delimiter
+
  
  ERROR:  
 
-Nenhum erro léxico encontrado!
+Linha 11:b-2 Identificador mal formado
+Linha 12:sad-asd Identificador mal formado

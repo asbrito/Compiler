@@ -1,7 +1,16 @@
 class batata{
-	method a{
+	method int a(){
 		if(a+b>2)then{
 			read(a);	
+		}
+	}
+}
+class xibiu{
+	method float a(){
+		while(a){		
+			if(!c &&(a < b-2/2))then{
+				a = sad+sad-asd();
+			}
 		}
 	}
 }
