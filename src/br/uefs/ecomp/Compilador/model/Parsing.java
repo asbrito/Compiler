@@ -5,6 +5,7 @@
  */
 package br.uefs.ecomp.Compilador.model;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -15,16 +16,17 @@ import java.util.Stack;
 public class Parsing {
 
     private final LinkedList tokenList;
+    private LinkedList errorList;
     private int i;
 
     public Parsing(LinkedList tokenList) {
         this.tokenList = tokenList;
+        this.errorList = new LinkedList();
         this.i = 0;
     }
 
     public boolean controllerParsing() {
         globalStructure();
-        System.out.println(i);
         return false;
     }
 
@@ -32,12 +34,27 @@ public class Parsing {
         constStructure();
         classStructure();
         moreClassesStructure();
+        
+        if(!errorList.isEmpty()){
+            System.out.println("Erro sitático econtrado!");
+            for (Object o : errorList) {
+                SyntacticError e = (SyntacticError)o;
+                System.out.print("Na linha "+ e.getLine()+ " é esperado: ");
+                for (Object o2 : e.getExpectedToken()) {
+                    String s = (String)o2;
+                    System.out.print("'"+ s +"' ");
+                }
+                System.out.println(" e consta: '"+ e.getToken().getLexeme()+"'");
+            }
+        }
     }
 
     private void constStructure() {
         Stack constStructureStack = new Stack();
         constStructureStack.add(((Token) tokenList.get(i)));
         if ("const".equals(((Token) tokenList.get(i)).getLexeme())) {
+            System.out.println(((Token) tokenList.get(i)).getLexeme());
+            i++;
             if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
                 constStructureStack.add(((Token) tokenList.get(i)));
                 System.out.println(((Token) tokenList.get(i)).getLexeme());
@@ -51,6 +68,18 @@ public class Parsing {
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
                     i++;
                 }
+                else{
+                    LinkedList l = new LinkedList();
+                    l.add("}");
+                    errorList.add(new SyntacticError( l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                    while(!"}".equals(((Token) tokenList.get(i)).getLexeme())){i++;}
+                }
+            }
+            else{
+                LinkedList l = new LinkedList();
+                l.add("{");
+                errorList.add(new SyntacticError( l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                while(!"}".equals(((Token) tokenList.get(i)).getLexeme())){i++;}
             }
         }
         if (constStructureStack.isEmpty()) {
@@ -70,6 +99,20 @@ public class Parsing {
                     constDeclarationStructure();
                 }
             }
+            else{
+                LinkedList l = new LinkedList();
+                l.add(";");
+                errorList.add(new SyntacticError( l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                while(!"}".equals(((Token) tokenList.get(i)).getLexeme())){i++;}
+            }
+        }
+        else{
+            LinkedList l = new LinkedList();
+            l.add("int");
+            l.add("float");
+            l.add("boolean");
+            errorList.add(new SyntacticError( l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+            while(!"}".equals(((Token) tokenList.get(i)).getLexeme())){i++;}
         }
     }
 
