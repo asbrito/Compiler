@@ -25,7 +25,6 @@ public class Compiler {
         lexical.readInputFileName();
         LinkedList l = lexical.getTokenList();
         Parsing parser = new Parsing(l);
-        
         parser.controllerParsing();
     }
     

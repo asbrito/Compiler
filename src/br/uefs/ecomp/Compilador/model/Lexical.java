@@ -39,7 +39,7 @@ public final class Lexical {
         String previous;
         boolean already = false;
         Token token = null;
-        Error erro ;
+        LexicalError erro ;
         BufferedReader file = new BufferedReader(new FileReader(new File(name)));
 
         while(file.ready()){
@@ -104,7 +104,7 @@ public final class Lexical {
                         already = true;
                     }
                     else{
-                        erro = new Error(previous,"Numero mal formado", line);
+                        erro = new LexicalError(previous,"Numero mal formado", line);
                         errorList.addLast(erro);
                         already = true;
                     }
@@ -133,7 +133,7 @@ public final class Lexical {
                     }
                 }
                 else{
-                    erro = new Error(previous,"Identificador mal formado", line);
+                    erro = new LexicalError(previous,"Identificador mal formado", line);
                     errorList.addLast(erro);
                 }
 
@@ -178,7 +178,7 @@ public final class Lexical {
                                 }
                             }while(file.ready());
                             if(error){
-                                erro = new Error("","Comentário não fechado", line);
+                                erro = new LexicalError("","Comentário não fechado", line);
                                 errorList.addLast(erro);
                             }
                         }
@@ -226,7 +226,7 @@ public final class Lexical {
                         already = false;
                     }
                     else{
-                        erro = new Error("&","Operador Logico mal formado", line);
+                        erro = new LexicalError("&","Operador Logico mal formado", line);
                         errorList.addLast(erro);
                         already = true;
                     }
@@ -239,7 +239,7 @@ public final class Lexical {
                         already = false;
                     }
                     else{
-                        erro = new Error("|","Operador Logico mal formado", line);
+                        erro = new LexicalError("|","Operador Logico mal formado", line);
                         errorList.addLast(erro);
                         already = true;
                     }
@@ -309,7 +309,7 @@ public final class Lexical {
                     already = false;
                 }
                 else{
-                    erro = new Error("","String mal formada", line);
+                    erro = new LexicalError("","String mal formada", line);
                     errorList.addLast(erro);
                     already = false;
                 }
@@ -334,7 +334,7 @@ public final class Lexical {
                     previous+=c;
                     c = (char) file.read();
                 }while(!isArithmatic(c) && !isLogical(c) && !isRelational(c) && !isDelimiter(c) && !isBarN(c) && !isAsp(c) && !isSpace(c));
-                erro = new Error(previous,"Símbolo não definido", line);
+                erro = new LexicalError(previous,"Símbolo não definido", line);
                 errorList.addLast(erro);
                 already = true;
             }
@@ -371,7 +371,7 @@ public final class Lexical {
             writefile.println("Nenhum erro léxico encontrado!");
         }else{
             for(int i = 0; i < errorList.size(); i++){
-                writefile.println("Linha " + ((Error)errorList.get(i)).getLine() +":" + ((Error)errorList.get(i)).getLexeme() + " " + ((Error)errorList.get(i)).getType());
+                writefile.println("Linha " + ((LexicalError)errorList.get(i)).getLine() +":" + ((LexicalError)errorList.get(i)).getLexeme() + " " + ((LexicalError)errorList.get(i)).getType());
             }
         }
         file2.close();

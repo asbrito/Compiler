@@ -9,12 +9,12 @@ package br.uefs.ecomp.Compilador.model;
  *
  * @author Adriel Brito & Natália Rosa
  */
-public class Error {
+public class LexicalError {
     private String type;
     private String lexeme;
     private int line;
 
-    public Error(String lexeme, String type, int line) {
+    public LexicalError(String lexeme, String type, int line) {
         this.lexeme = lexeme;
         this.type = type;
         this.line = line;

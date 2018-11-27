@@ -1,3 +1,49 @@
+const Keyword
+
+{ Delimiter
+
+a Identifier
+
+= RelationalOperator
+
+2 Number
+
+; Delimiter
+
+int Keyword
+
+c Identifier
+
+= RelationalOperator
+
+true Keyword
+
+; Delimiter
+
+} Delimiter
+
+class Keyword
+
+batata Identifier
+
+{ Delimiter
+
+method Keyword
+
+int Keyword
+
+a Identifier
+
+( Delimiter
+
+) Delimiter
+
+{ Delimiter
+
+if Keyword
+
+( Delimiter
+
 a Identifier
 
 + ArithmaticOperator
@@ -8,7 +54,111 @@ b Identifier
 
 2 Number
 
+<<<<<<< HEAD
+=======
+) Delimiter
+
+then Keyword
+
+{ Delimiter
+
+read Keyword
+
+( Delimiter
+
+a Identifier
+
+) Delimiter
+
+; Delimiter
+
+} Delimiter
+
+} Delimiter
+
+} Delimiter
+
+class Keyword
+
+xibiu Identifier
+
+{ Delimiter
+
+method Keyword
+
+float Keyword
+
+a Identifier
+
+( Delimiter
+
+) Delimiter
+
+{ Delimiter
+
+while Keyword
+
+( Delimiter
+
+a Identifier
+
+) Delimiter
+
+{ Delimiter
+
+if Keyword
+
+( Delimiter
+
+! LogicalOperator
+
+c Identifier
+
+&& LogicalOperator
+
+( Delimiter
+
+a Identifier
+
+< RelationalOperator
+
+/ ArithmaticOperator
+
+2 Number
+
+) Delimiter
+
+) Delimiter
+
+then Keyword
+
+{ Delimiter
+
+a Identifier
+
+= RelationalOperator
+
+sad Identifier
+
++ ArithmaticOperator
+
+( Delimiter
+
+) Delimiter
+
+; Delimiter
+
+} Delimiter
+
+} Delimiter
+
+} Delimiter
+
+} Delimiter
+
+>>>>>>> cb7bd089821693fb3e83b865f1b8faac580c6ddc
  
  ERROR:  
 
-Nenhum erro léxico encontrado!
+Linha 15:b-2 Identificador mal formado
+Linha 16:sad-asd Identificador mal formado

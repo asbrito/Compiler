@@ -1,1 +1,24 @@
+<<<<<<< HEAD
 a + b > 2 
+=======
+const{
+	a = 2;
+	int c = true;
+}
+class batata{
+	method int a(){
+		if(a+b>2)then{
+			read(a);	
+		}
+	}
+}
+class xibiu{
+	method float a(){
+		while(a){		
+			if(!c &&(a < b-2/2))then{
+				a = sad+sad-asd();
+			}
+		}
+	}
+}
+>>>>>>> cb7bd089821693fb3e83b865f1b8faac580c6ddc
