@@ -54,6 +54,8 @@ b Identifier
 
 2 Number
 
+<<<<<<< HEAD
+=======
 ) Delimiter
 
 then Keyword
@@ -154,6 +156,7 @@ sad Identifier
 
 } Delimiter
 
+>>>>>>> cb7bd089821693fb3e83b865f1b8faac580c6ddc
  
  ERROR:  
 

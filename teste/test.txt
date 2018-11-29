@@ -1,8 +1,19 @@
+<<<<<<< HEAD
 class batata {
 	variables{
 		int a, b;
 		aa aa, aa;
 	}
+=======
+<<<<<<< HEAD
+a + b > 2 
+=======
+const{
+	a = 2;
+	int c = true;
+}
+class batata{
+>>>>>>> c56ca0aca18538366ac989d9adf92bda39416bff
 	method int a(){
 		if(a+b>2)then{
 			read(a);	
@@ -18,3 +29,4 @@ class xibiu{
 		}
 	}
 }
+>>>>>>> cb7bd089821693fb3e83b865f1b8faac580c6ddc
