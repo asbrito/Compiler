@@ -1,32 +1,32 @@
-const Keyword
-
-{ Delimiter
-
-a Identifier
-
-= RelationalOperator
-
-2 Number
-
-; Delimiter
-
-int Keyword
-
-c Identifier
-
-= RelationalOperator
-
-true Keyword
-
-; Delimiter
-
-} Delimiter
-
 class Keyword
 
 batata Identifier
 
 { Delimiter
+
+variables Keyword
+
+{ Delimiter
+
+int Keyword
+
+a Identifier
+
+, Delimiter
+
+b Identifier
+
+; Delimiter
+
+a Identifier
+
+a Identifier
+
+, Delimiter
+
+a Identifier
+
+; Delimiter
 
 method Keyword
 
@@ -157,5 +157,5 @@ sad Identifier
  
  ERROR:  
 
-Linha 15:b-2 Identificador mal formado
-Linha 16:sad-asd Identificador mal formado
+Linha 16:b-2 Identificador mal formado
+Linha 17:sad-asd Identificador mal formado
