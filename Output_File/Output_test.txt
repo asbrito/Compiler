@@ -4,52 +4,6 @@ batata Identifier
 
 { Delimiter
 
-method Keyword
-
-int Keyword
-
-a Identifier
-
-( Delimiter
-
-) Delimiter
-
-{ Delimiter
-
-if Keyword
-
-( Delimiter
-
-a Identifier
-
-+ ArithmaticOperator
-
-b Identifier
-
-> RelationalOperator
-
-2 Number
-
-) Delimiter
-
-then Keyword
-
-{ Delimiter
-
-read Keyword
-
-( Delimiter
-
-a Identifier
-
-) Delimiter
-
-; Delimiter
-
-} Delimiter
-
-} Delimiter
-
 } Delimiter
 
 class Keyword
@@ -130,8 +84,88 @@ sad Identifier
 
 } Delimiter
 
+class Keyword
+
+y Identifier
+
+{ Delimiter
+
+method Keyword
+
+float Keyword
+
+a Identifier
+
+( Delimiter
+
+) Delimiter
+
+{ Delimiter
+
+while Keyword
+
+( Delimiter
+
+a Identifier
+
+) Delimiter
+
+{ Delimiter
+
+if Keyword
+
+( Delimiter
+
+! LogicalOperator
+
+c Identifier
+
+&& LogicalOperator
+
+( Delimiter
+
+a Identifier
+
+< RelationalOperator
+
+/ ArithmaticOperator
+
+2 Number
+
+) Delimiter
+
+) Delimiter
+
+then Keyword
+
+{ Delimiter
+
+a Identifier
+
+= RelationalOperator
+
+sad Identifier
+
++ ArithmaticOperator
+
+( Delimiter
+
+) Delimiter
+
+; Delimiter
+
+} Delimiter
+
+} Delimiter
+
+} Delimiter
+
+} Delimiter
+
  
  ERROR:  
 
-Linha 22:b-2 Identificador mal formado
-Linha 24:sad-asd Identificador mal formado
+Linha 12:b-2 Identificador mal formado
+Linha 14:sad-asd Identificador mal formado
+Linha 29:b-2 Identificador mal formado
+Linha 31:sad-asd Identificador mal formado

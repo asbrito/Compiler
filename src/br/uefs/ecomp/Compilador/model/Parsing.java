@@ -159,7 +159,7 @@ public class Parsing {
                         LinkedList l = new LinkedList();
                         l.add("Tipo Identificador");
                         errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
-                        while (!"calss".equals(((Token) tokenList.get(i)).getLexeme())) {
+                        while (!"class".equals(((Token) tokenList.get(i)).getLexeme())) {
                             i++;
                         }
                     }
@@ -172,6 +172,8 @@ public class Parsing {
                     if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
                         System.out.println(((Token) tokenList.get(i)).getLexeme());
                         System.out.println("SUCESSO em classe");
+                        i++;
+                        
                     } else {
                         LinkedList l = new LinkedList();
                         l.add("}");
@@ -209,9 +211,11 @@ public class Parsing {
     }
 
     private void moreClassesStructure() {
-        if ("class".equals(((Token) tokenList.get(i)).getLexeme())) {
-            classStructure();
-            moreClassesStructure();
+        if (tokenList.size() > i){
+            if ("class".equals(((Token) tokenList.get(i)).getLexeme())) {
+                classStructure();
+                moreClassesStructure();
+            }
         }
     }
 

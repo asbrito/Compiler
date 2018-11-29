@@ -1,15 +1,5 @@
-
 class batata{
 
-	method int a(){
-
-		if(a+b>2)then{
-
-			read(a);	
-
-		}
-
-	}
 
 }
 
@@ -30,4 +20,20 @@ class x{
 	}
 
 }
+class y{
 
+	method float a(){
+
+		while(a){		
+
+			if(!c &&(a < b-2/2))then{
+
+				a = sad+sad-asd();
+
+			}
+
+		}
+
+	}
+
+}
