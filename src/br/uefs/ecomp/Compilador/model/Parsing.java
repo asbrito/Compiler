@@ -59,9 +59,7 @@ public class Parsing {
                 constStructureStack.add(((Token) tokenList.get(i)));
                 System.out.println(((Token) tokenList.get(i)).getLexeme());
                 i++;
-                while (!("}".equals(((Token) tokenList.get(i)).getLexeme()))) {
                     constDeclarationStructure();
-                }
                 if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
                     constStructureStack.pop(); //Desempilha '}'
                     constStructureStack.pop(); //Desempilha 'const'

@@ -2,6 +2,8 @@ const Keyword
 
 { Delimiter
 
+float Keyword
+
 a Identifier
 
 = RelationalOperator
@@ -19,8 +21,6 @@ c Identifier
 true Keyword
 
 ; Delimiter
-
-} Delimiter
 
 class Keyword
 
@@ -54,8 +54,6 @@ b Identifier
 
 2 Number
 
-<<<<<<< HEAD
-=======
 ) Delimiter
 
 then Keyword
@@ -80,7 +78,7 @@ a Identifier
 
 class Keyword
 
-xibiu Identifier
+x Identifier
 
 { Delimiter
 
@@ -156,9 +154,8 @@ sad Identifier
 
 } Delimiter
 
->>>>>>> cb7bd089821693fb3e83b865f1b8faac580c6ddc
  
  ERROR:  
 
-Linha 15:b-2 Identificador mal formado
-Linha 16:sad-asd Identificador mal formado
+Linha 25:b-2 Identificador mal formado
+Linha 27:sad-asd Identificador mal formado
