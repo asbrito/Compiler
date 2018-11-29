@@ -1,28 +1,25 @@
-const{
-	float a = 2;
-	int c = true;
-
 
 class batata{
 
 	method int a(){
-	
+
 		if(a+b>2)then{
 
-			read(a);
-	
-	}
+			read(a);	
+
+		}
 
 	}
 
 }
+
 class x{
 
 	method float a(){
 
-		while(a){
-		
-	if(!c &&(a < b-2/2))then{
+		while(a){		
+
+			if(!c &&(a < b-2/2))then{
 
 				a = sad+sad-asd();
 
@@ -33,3 +30,4 @@ class x{
 	}
 
 }
+

@@ -1,27 +1,3 @@
-const Keyword
-
-{ Delimiter
-
-float Keyword
-
-a Identifier
-
-= RelationalOperator
-
-2 Number
-
-; Delimiter
-
-int Keyword
-
-c Identifier
-
-= RelationalOperator
-
-true Keyword
-
-; Delimiter
-
 class Keyword
 
 batata Identifier
@@ -157,5 +133,5 @@ sad Identifier
  
  ERROR:  
 
-Linha 25:b-2 Identificador mal formado
-Linha 27:sad-asd Identificador mal formado
+Linha 22:b-2 Identificador mal formado
+Linha 24:sad-asd Identificador mal formado
