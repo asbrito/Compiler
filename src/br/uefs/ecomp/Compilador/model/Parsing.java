@@ -542,7 +542,6 @@ public class Parsing {
                             LinkedList l = new LinkedList();
                             l.add("}");
                             errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
-                            System.out.println("ERROOOOOO");
                             while (!"else".equals(((Token) tokenList.get(i)).getLexeme())
                                 && !"if".equals(((Token) tokenList.get(i)).getLexeme())
                                 && !"while".equals(((Token) tokenList.get(i)).getLexeme())
@@ -551,6 +550,10 @@ public class Parsing {
                                 && !"}".equals(((Token) tokenList.get(i)).getLexeme())) {
                                 i++;
                             }
+                            if ("else".equals(((Token) tokenList.get(i)).getLexeme())){
+                                 elseStructure();
+                            } else{
+                            commandsStructure();}
                         }
                     }
                     

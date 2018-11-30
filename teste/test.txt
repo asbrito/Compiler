@@ -16,14 +16,13 @@ class x{
 
 				a = sad+sad-asd();
 
-			} else{
+			 else{
 				a = sad;
 			}
 
 		}
 
 	}
-
 }
 class y{
 

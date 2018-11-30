@@ -209,5 +209,5 @@ sad Identifier
 
 Linha 15:b-2 Identificador mal formado
 Linha 17:sad-asd Identificador mal formado
-Linha 34:b-2 Identificador mal formado
-Linha 36:sad-asd Identificador mal formado
+Linha 33:b-2 Identificador mal formado
+Linha 35:sad-asd Identificador mal formado
