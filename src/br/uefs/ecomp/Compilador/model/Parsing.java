@@ -610,68 +610,87 @@ public class Parsing {
     }
 
     private void writeStructure() {
-        Stack writeStructureStack = new Stack();
-        writeStructureStack.add(((Token) tokenList.get(i)));
-        System.out.println(((Token) tokenList.get(i)).getLexeme());
-        i++;
-        if ("(".equals(((Token) tokenList.get(i)).getLexeme())) {
-            writeStructureStack.add(((Token) tokenList.get(i)));
+        if ("write".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             i++;
-
-            while (!(")".equals(((Token) tokenList.get(i)).getLexeme()))) {
+            if ("(".equals(((Token) tokenList.get(i)).getLexeme())) {
                 System.out.println(((Token) tokenList.get(i)).getLexeme());
                 i++;
                 writeparameterStructure();
-            }
-
-            if (")".equals(((Token) tokenList.get(i)).getLexeme())) {
-                writeStructureStack.pop();
-                System.out.println(((Token) tokenList.get(i)).getLexeme());
-                i++;
-
-                if (";".equals(((Token) tokenList.get(i)).getLexeme())) {
-                    writeStructureStack.pop();
+                if (")".equals(((Token) tokenList.get(i)).getLexeme())) {
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
+                    i++;
+                    writeparameterStructure();
+                    if (";".equals(((Token) tokenList.get(i)).getLexeme())) {
+                        System.out.println(((Token) tokenList.get(i)).getLexeme());
+                        i++;
+                    } else {
+                        LinkedList l = new LinkedList();
+                        l.add(";");
+                        errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                        while (!";".equals(((Token) tokenList.get(i)).getLexeme())) {
+                            i++;
+                        }
+                    }
+                } else {
+                    LinkedList l = new LinkedList();
+                    l.add(")");
+                    errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                    while (!";".equals(((Token) tokenList.get(i)).getLexeme())) {
+                        i++;
+                    }
+                }
+
+            } else {
+                LinkedList l = new LinkedList();
+                l.add("(");
+                errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                while (!";".equals(((Token) tokenList.get(i)).getLexeme())) {
                     i++;
                 }
             }
-        }
-        if (writeStructureStack.isEmpty()) {
-            System.out.println("SUCESSO em write.");
         }
     }
 
     private void readStructure() {
-        Stack readStructureStack = new Stack();
-        readStructureStack.add(((Token) tokenList.get(i)));
-        System.out.println(((Token) tokenList.get(i)).getLexeme());
-        i++;
-        if ("(".equals(((Token) tokenList.get(i)).getLexeme())) {
-            readStructureStack.add(((Token) tokenList.get(i)));
+        if ("read".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             i++;
-
-            while (!(")".equals(((Token) tokenList.get(i)).getLexeme()))) {
+            if ("(".equals(((Token) tokenList.get(i)).getLexeme())) {
                 System.out.println(((Token) tokenList.get(i)).getLexeme());
                 i++;
                 readparameterStructure();
-            }
-
-            if (")".equals(((Token) tokenList.get(i)).getLexeme())) {
-                readStructureStack.pop();
-                System.out.println(((Token) tokenList.get(i)).getLexeme());
-                i++;
-
-                if (";".equals(((Token) tokenList.get(i)).getLexeme())) {
-                    readStructureStack.pop();
+                if (")".equals(((Token) tokenList.get(i)).getLexeme())) {
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
+                    i++;
+
+                    if (";".equals(((Token) tokenList.get(i)).getLexeme())) {
+                        System.out.println(((Token) tokenList.get(i)).getLexeme());
+                        i++;
+                    } else {
+                        LinkedList l = new LinkedList();
+                        l.add(";");
+                        errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                        while (!";".equals(((Token) tokenList.get(i)).getLexeme())) {
+                            i++;
+                        }
+                    }
+                } else {
+                    LinkedList l = new LinkedList();
+                    l.add(")");
+                    errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                    while (!";".equals(((Token) tokenList.get(i)).getLexeme())) {
+                        i++;
+                    }
+                }
+            } else {
+                LinkedList l = new LinkedList();
+                l.add("(");
+                errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                while (!";".equals(((Token) tokenList.get(i)).getLexeme())) {
                     i++;
                 }
             }
-        }
-        if (readStructureStack.isEmpty()) {
-            System.out.println("SUCESSO em read.");
         }
     }
 
@@ -683,7 +702,16 @@ public class Parsing {
             attributeStructure();
             write2Structure();
         } else if (Type.String.equals(((Token) tokenList.get(i)).getType())) {
+            i++;
             write2Structure();
+        } else {
+            LinkedList l = new LinkedList();
+            l.add("Tipo Indentificador");
+            l.add("String");
+            errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+            while (!";".equals(((Token) tokenList.get(i)).getLexeme())) {
+                i++;
+            }
         }
     }
 
@@ -694,6 +722,13 @@ public class Parsing {
             arrayStructure();
             attributeStructure();
             read2Structure();
+        } else {
+            LinkedList l = new LinkedList();
+            l.add("Tipo Indentificador");
+            errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+            while (!";".equals(((Token) tokenList.get(i)).getLexeme())) {
+                i++;
+            }
         }
     }
 
