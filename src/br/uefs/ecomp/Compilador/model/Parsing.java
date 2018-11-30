@@ -419,7 +419,7 @@ public class Parsing {
     private void commandsStructure() {
         switch (((Token) tokenList.get(i)).getLexeme()) {
             case "if":
-                ifelseStructure();
+                ifStructure();
                 commandsStructure();
                 break;
             case "while":
@@ -519,20 +519,16 @@ public class Parsing {
         }
     }
 
-    private void ifelseStructure() { //Recebe posição do token na lista de tokens
-        Stack ifStructureStack = new Stack();
-        ifStructureStack.add(((Token) tokenList.get(i)));
+    private void ifStructure() { 
         System.out.println(((Token) tokenList.get(i)).getLexeme());
         i++;
 
         if ("(".equals(((Token) tokenList.get(i)).getLexeme())) {
-            ifStructureStack.add(((Token) tokenList.get(i)));
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             i++;
             expressionStructure();
 
             if (")".equals(((Token) tokenList.get(i)).getLexeme())) {
-                ifStructureStack.pop();
                 System.out.println(((Token) tokenList.get(i)).getLexeme());
                 i++;
 
@@ -540,46 +536,40 @@ public class Parsing {
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
                     i++;
                     if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
-                        ifStructureStack.add(((Token) tokenList.get(i)));
                         System.out.println(((Token) tokenList.get(i)).getLexeme());
                         i++;
                         commandsStructure();
                         if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
-                            ifStructureStack.pop(); //Desempilha '}'
-                            ifStructureStack.pop(); //Desempilha 'if'
                             System.out.println(((Token) tokenList.get(i)).getLexeme());
+                            System.out.println("SUCESSO em if.");
                             i++;
+                            elseStructure();
+                        }
+                        else {
+                            LinkedList l = new LinkedList();
+                            l.add("}");
+                            errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                            
                         }
                     }
+                    
                 }
             }
         }
-
-        if (ifStructureStack.isEmpty()) {
-            System.out.println("SUCESSO em if.");
-            if (tokenList.size() > i) {
-                if ("else".equals(((Token) tokenList.get(i)).getLexeme())) {
-                    Stack elseStructureStack = new Stack();
-                    elseStructureStack.add(((Token) tokenList.get(i)));
+    }
+    
+    private void elseStructure() {
+        if ("else".equals(((Token) tokenList.get(i)).getLexeme())) {
+            System.out.println(((Token) tokenList.get(i)).getLexeme());
+            i++;
+            if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
+                System.out.println(((Token) tokenList.get(i)).getLexeme());
+                i++;
+                commandsStructure();
+                if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
+                    System.out.println("SUCESSO em else");
                     i++;
-                    if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
-                        elseStructureStack.add(((Token) tokenList.get(i)));
-                        System.out.println(((Token) tokenList.get(i)).getLexeme());
-                        i++;
-                        while (!("}".equals(((Token) tokenList.get(i)).getLexeme()))) {
-                        }
-
-                        if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
-                            elseStructureStack.pop(); //Desempilha '}'
-                            elseStructureStack.pop(); //Desempilha 'else'
-                            System.out.println(((Token) tokenList.get(i)).getLexeme());
-                            i++;
-                        }
-                    }
-                    if (elseStructureStack.isEmpty()) {
-                        System.out.println("SUCESSO em else");
-                    }
                 }
             }
         }

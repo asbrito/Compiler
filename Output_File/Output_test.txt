@@ -78,6 +78,20 @@ sad Identifier
 
 } Delimiter
 
+else Keyword
+
+{ Delimiter
+
+a Identifier
+
+= RelationalOperator
+
+sad Identifier
+
+; Delimiter
+
+} Delimiter
+
 } Delimiter
 
 } Delimiter
@@ -156,6 +170,20 @@ sad Identifier
 
 } Delimiter
 
+else Keyword
+
+{ Delimiter
+
+a Identifier
+
+= RelationalOperator
+
+sad Identifier
+
+; Delimiter
+
+} Delimiter
+
 } Delimiter
 
 } Delimiter
@@ -167,5 +195,5 @@ sad Identifier
 
 Linha 12:b-2 Identificador mal formado
 Linha 14:sad-asd Identificador mal formado
-Linha 29:b-2 Identificador mal formado
-Linha 31:sad-asd Identificador mal formado
+Linha 31:b-2 Identificador mal formado
+Linha 33:sad-asd Identificador mal formado

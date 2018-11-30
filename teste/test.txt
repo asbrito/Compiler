@@ -13,6 +13,8 @@ class x{
 
 				a = sad+sad-asd();
 
+			} else{
+				a = sad;
 			}
 
 		}
@@ -30,6 +32,9 @@ class y{
 
 				a = sad+sad-asd();
 
+			}
+			else{
+				a = sad;
 			}
 
 		}
