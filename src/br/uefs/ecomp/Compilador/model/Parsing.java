@@ -50,21 +50,17 @@ public class Parsing {
     }
 
     private void constStructure() {
-        Stack constStructureStack = new Stack();
-        constStructureStack.add(((Token) tokenList.get(i)));
         if ("const".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             i++;
             if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
-                constStructureStack.add(((Token) tokenList.get(i)));
                 System.out.println(((Token) tokenList.get(i)).getLexeme());
                 i++;
                     constDeclarationStructure();
                 if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
-                    constStructureStack.pop(); //Desempilha '}'
-                    constStructureStack.pop(); //Desempilha 'const'
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
                     i++;
+                    System.out.println("SUCESSO em const.");
                 } else {
                     LinkedList l = new LinkedList();
                     l.add("}");
@@ -81,9 +77,6 @@ public class Parsing {
                     i++;
                 }
             }
-        }
-        if (constStructureStack.isEmpty()) {
-            System.out.println("SUCESSO em const.");
         }
     }
 
@@ -549,7 +542,15 @@ public class Parsing {
                             LinkedList l = new LinkedList();
                             l.add("}");
                             errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
-                            
+                            System.out.println("ERROOOOOO");
+                            while (!"else".equals(((Token) tokenList.get(i)).getLexeme())
+                                && !"if".equals(((Token) tokenList.get(i)).getLexeme())
+                                && !"while".equals(((Token) tokenList.get(i)).getLexeme())
+                                && !"write".equals(((Token) tokenList.get(i)).getLexeme())
+                                && !"read".equals(((Token) tokenList.get(i)).getLexeme())
+                                && !"}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                                i++;
+                            }
                         }
                     }
                     
