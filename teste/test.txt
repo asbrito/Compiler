@@ -1,46 +1,21 @@
 const {
 	int a = 2;
 }
-class batata{
-
-
-}
-
 class x{
 
 	method float a(){
 
 		while(a){		
 
-			if(!c &&(a < b-2/2))then{
+			if (!c) then{
 
-				a = sad+sad-asd();
+				a = sad + sad - asd();
 
-			 else{
+			 }else {
 				a = sad;
 			}
 
 		}
 
 	}
-}
-class y{
-
-	method float a(){
-
-		while(a){		
-
-			if(!c &&(a < b-2/2))then{
-
-				a = sad+sad-asd();
-
-			}
-			else{
-				a = sad;
-			}
-
-		}
-
-	}
-
 }

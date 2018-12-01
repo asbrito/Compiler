@@ -56,7 +56,7 @@ public class Parsing {
             if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
                 System.out.println(((Token) tokenList.get(i)).getLexeme());
                 i++;
-                    constDeclarationStructure();
+                constDeclarationStructure();
                 if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
                     i++;
@@ -166,7 +166,7 @@ public class Parsing {
                         System.out.println(((Token) tokenList.get(i)).getLexeme());
                         System.out.println("SUCESSO em classe");
                         i++;
-                        
+
                     } else {
                         LinkedList l = new LinkedList();
                         l.add("}");
@@ -204,7 +204,7 @@ public class Parsing {
     }
 
     private void moreClassesStructure() {
-        if (tokenList.size() > i){
+        if (tokenList.size() > i) {
             if ("class".equals(((Token) tokenList.get(i)).getLexeme())) {
                 classStructure();
                 moreClassesStructure();
@@ -240,11 +240,10 @@ public class Parsing {
             if (";".equals(((Token) tokenList.get(i)).getLexeme())) {
                 System.out.println(((Token) tokenList.get(i)).getLexeme());
                 i++;
-                if(keywordType(((Token) tokenList.get(i)).getLexeme())
-                        || Type.Identifier.equals(((Token) tokenList.get(i)).getType())){
+                if (keywordType(((Token) tokenList.get(i)).getLexeme())
+                        || Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
                     variableDeclarationStructure();
-                }
-                else if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                } else if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
                     i++;
                     System.out.println("SUCESSO em variables.");
@@ -275,11 +274,10 @@ public class Parsing {
             if (";".equals(((Token) tokenList.get(i)).getLexeme())) {
                 System.out.println(((Token) tokenList.get(i)).getLexeme());
                 i++;
-                if(keywordType(((Token) tokenList.get(i)).getLexeme())
-                        || Type.Identifier.equals(((Token) tokenList.get(i)).getType())){
+                if (keywordType(((Token) tokenList.get(i)).getLexeme())
+                        || Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
                     variableDeclarationStructure();
-                }
-                else if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                } else if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
                     i++;
                     System.out.println("SUCESSO em variables.");
@@ -328,7 +326,7 @@ public class Parsing {
                 i++;
                 moreVariableStructure();
             }
-        }else {
+        } else {
             LinkedList l = new LinkedList();
             l.add("Tipo Indentificador");
             errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
@@ -410,28 +408,22 @@ public class Parsing {
     }
 
     private void commandsStructure() {
-        switch (((Token) tokenList.get(i)).getLexeme()) {
-            case "if":
-                ifStructure();
-                commandsStructure();
-                break;
-            case "while":
-                whileStructure();
-                commandsStructure();
-                break;
-            case "write":
-                writeStructure();
-                commandsStructure();
-                break;
-            case "read":
-                readStructure();
-                commandsStructure();
-                break;
-            case "return":
-                returnStructure();
-                commandsStructure();
-        }
-        if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())
+        if ("if".equals(((Token) tokenList.get(i)).getLexeme())) {
+            ifStructure();
+            commandsStructure();
+        } else if ("while".equals(((Token) tokenList.get(i)).getLexeme())) {
+            whileStructure();
+            commandsStructure();
+        } else if ("write".equals(((Token) tokenList.get(i)).getLexeme())) {
+            writeStructure();
+            commandsStructure();
+        } else if ("read".equals(((Token) tokenList.get(i)).getLexeme())) {
+            readStructure();
+            commandsStructure();
+        } else if ("return".equals(((Token) tokenList.get(i)).getLexeme())) {
+            returnStructure();
+            commandsStructure();
+        } else if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())
                 || "--".equals(((Token) tokenList.get(i)).getLexeme())
                 || "++".equals(((Token) tokenList.get(i)).getLexeme())) {
             atributtionStructure();
@@ -512,7 +504,7 @@ public class Parsing {
         }
     }
 
-    private void ifStructure() { 
+    private void ifStructure() {
         System.out.println(((Token) tokenList.get(i)).getLexeme());
         i++;
 
@@ -537,45 +529,124 @@ public class Parsing {
                             System.out.println("SUCESSO em if.");
                             i++;
                             elseStructure();
-                        }
-                        else {
+                        } else {
                             LinkedList l = new LinkedList();
                             l.add("}");
                             errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
                             while (!"else".equals(((Token) tokenList.get(i)).getLexeme())
+                                    && !"if".equals(((Token) tokenList.get(i)).getLexeme())
+                                    && !"while".equals(((Token) tokenList.get(i)).getLexeme())
+                                    && !"write".equals(((Token) tokenList.get(i)).getLexeme())
+                                    && !"read".equals(((Token) tokenList.get(i)).getLexeme())
+                                    && !"}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                                i++;
+                            }
+                            if ("else".equals(((Token) tokenList.get(i)).getLexeme())) {
+                                elseStructure();
+                            } 
+                            else if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                                i++;
+                                if ("else".equals(((Token) tokenList.get(i)).getLexeme())) {
+                                    elseStructure();
+                                }
+                            } 
+                            else {
+                                commandsStructure();
+                            }
+                        }
+                    }
+                    else {
+                        LinkedList l = new LinkedList();
+                        l.add("{");
+                        errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                        while (!"else".equals(((Token) tokenList.get(i)).getLexeme())
                                 && !"if".equals(((Token) tokenList.get(i)).getLexeme())
                                 && !"while".equals(((Token) tokenList.get(i)).getLexeme())
                                 && !"write".equals(((Token) tokenList.get(i)).getLexeme())
                                 && !"read".equals(((Token) tokenList.get(i)).getLexeme())
                                 && !"}".equals(((Token) tokenList.get(i)).getLexeme())) {
-                                i++;
-                            }
-                            if ("else".equals(((Token) tokenList.get(i)).getLexeme())){
-                                 elseStructure();
-                            } else{
-                            commandsStructure();}
+                            i++;
                         }
+                        if ("else".equals(((Token) tokenList.get(i)).getLexeme())) {
+                            elseStructure();
+                        } else if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                            i++;
+                            if ("else".equals(((Token) tokenList.get(i)).getLexeme())) {
+                                elseStructure();
+                            }
+                        } 
+                        commandsStructure();
                     }
-                    
                 }
             }
+        } 
+        else {
+            LinkedList l = new LinkedList();
+            l.add("(");
+            errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+            while (!"else".equals(((Token) tokenList.get(i)).getLexeme())
+                    && !"if".equals(((Token) tokenList.get(i)).getLexeme())
+                    && !"while".equals(((Token) tokenList.get(i)).getLexeme())
+                    && !"write".equals(((Token) tokenList.get(i)).getLexeme())
+                    && !"read".equals(((Token) tokenList.get(i)).getLexeme())
+                    && !"}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                i++;
+            }
+            if ("else".equals(((Token) tokenList.get(i)).getLexeme())) {
+                elseStructure();
+            } else if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                i++;
+                if ("else".equals(((Token) tokenList.get(i)).getLexeme())) {
+                    elseStructure();
+                }
+            }
+            commandsStructure();
         }
     }
-    
+
     private void elseStructure() {
-        if ("else".equals(((Token) tokenList.get(i)).getLexeme())) {
+        System.out.println(((Token) tokenList.get(i)).getLexeme());
+        i++;
+        if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             i++;
-            if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
+            commandsStructure();
+            if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
                 System.out.println(((Token) tokenList.get(i)).getLexeme());
+                System.out.println("SUCESSO em else");
                 i++;
-                commandsStructure();
-                if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
-                    System.out.println(((Token) tokenList.get(i)).getLexeme());
-                    System.out.println("SUCESSO em else");
+            } else {
+                LinkedList l = new LinkedList();
+                l.add("}");
+                errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                while (!"if".equals(((Token) tokenList.get(i)).getLexeme())
+                        && !"while".equals(((Token) tokenList.get(i)).getLexeme())
+                        && !"write".equals(((Token) tokenList.get(i)).getLexeme())
+                        && !"read".equals(((Token) tokenList.get(i)).getLexeme())
+                        && !"}".equals(((Token) tokenList.get(i)).getLexeme())) {
                     i++;
                 }
+                if ("else".equals(((Token) tokenList.get(i)).getLexeme())) {
+                    elseStructure();
+                } else {
+                    commandsStructure();
+                }
             }
+        } else {
+            LinkedList l = new LinkedList();
+            l.add("{");
+            errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+            while (!"if".equals(((Token) tokenList.get(i)).getLexeme())
+                    && !"while".equals(((Token) tokenList.get(i)).getLexeme())
+                    && !"write".equals(((Token) tokenList.get(i)).getLexeme())
+                    && !"read".equals(((Token) tokenList.get(i)).getLexeme())
+                    && !"}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                i++;
+            }
+            if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                i++;
+            }
+            commandsStructure();
         }
     }
 
@@ -966,6 +1037,6 @@ public class Parsing {
 
     private boolean keywordType(String lexeme) {
         return (lexeme.equals("int")) || (lexeme.equals("float")) || (lexeme.equals("bool")) || (lexeme.equals("string")) || (lexeme.equals("void"));
-    } //Verifica se é uma keyword de tipagem
+    }
 
 }

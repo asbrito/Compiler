@@ -16,14 +16,6 @@ a Identifier
 
 class Keyword
 
-batata Identifier
-
-{ Delimiter
-
-} Delimiter
-
-class Keyword
-
 x Identifier
 
 { Delimiter
@@ -58,20 +50,6 @@ if Keyword
 
 c Identifier
 
-&& LogicalOperator
-
-( Delimiter
-
-a Identifier
-
-< RelationalOperator
-
-/ ArithmaticOperator
-
-2 Number
-
-) Delimiter
-
 ) Delimiter
 
 then Keyword
@@ -86,95 +64,11 @@ sad Identifier
 
 + ArithmaticOperator
 
-( Delimiter
-
-) Delimiter
-
-; Delimiter
-
-else Keyword
-
-{ Delimiter
-
-a Identifier
-
-= RelationalOperator
-
 sad Identifier
 
-; Delimiter
+- ArithmaticOperator
 
-} Delimiter
-
-} Delimiter
-
-} Delimiter
-
-} Delimiter
-
-class Keyword
-
-y Identifier
-
-{ Delimiter
-
-method Keyword
-
-float Keyword
-
-a Identifier
-
-( Delimiter
-
-) Delimiter
-
-{ Delimiter
-
-while Keyword
-
-( Delimiter
-
-a Identifier
-
-) Delimiter
-
-{ Delimiter
-
-if Keyword
-
-( Delimiter
-
-! LogicalOperator
-
-c Identifier
-
-&& LogicalOperator
-
-( Delimiter
-
-a Identifier
-
-< RelationalOperator
-
-/ ArithmaticOperator
-
-2 Number
-
-) Delimiter
-
-) Delimiter
-
-then Keyword
-
-{ Delimiter
-
-a Identifier
-
-= RelationalOperator
-
-sad Identifier
-
-+ ArithmaticOperator
+asd Identifier
 
 ( Delimiter
 
@@ -207,7 +101,4 @@ sad Identifier
  
  ERROR:  
 
-Linha 15:b-2 Identificador mal formado
-Linha 17:sad-asd Identificador mal formado
-Linha 33:b-2 Identificador mal formado
-Linha 35:sad-asd Identificador mal formado
+Nenhum erro léxico encontrado!
