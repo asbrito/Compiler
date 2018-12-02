@@ -399,43 +399,46 @@ public class Parsing {
                                         if ("method".equals(((Token) tokenList.get(i)).getLexeme())) {
                                             methodDeclarationStructure();
                                         }
-                                    } else {
+                                    }else{
                                         LinkedList l = new LinkedList();
                                         l.add("}");
                                         errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
                                         methodError();
                                     }
-                                } else {
+                                }else{
                                     LinkedList l = new LinkedList();
                                     l.add("{");
                                     errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
                                     methodError();
                                 }
-                            } else {
+                            }else{
                                 LinkedList l = new LinkedList();
                                 l.add(")");
                                 errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
                                 methodError();
                             }
-                        } else {
+                        }else{
                             LinkedList l = new LinkedList();
                             l.add("(");
                             errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
                             methodError();
                         }
-                    } else {
+                    }
+                    else{
                         LinkedList l = new LinkedList();
                         l.add("Identifier");
                         errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
                         methodError();
                     }
-                } else {
+                }
+                else{
                     LinkedList l = new LinkedList();
                     l.add("void || bool || int || string || float");
                     errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
                     methodError();
                 }
-            } else {
+            }
+            else {
                 LinkedList l = new LinkedList();
                 l.add("void || bool || int || string || float");
                 errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
@@ -444,24 +447,19 @@ public class Parsing {
         }
     }
 
-    private void methodError() throws IOException {
+    private void methodError() throws IOException{
         while (!"method".equals(((Token) tokenList.get(i)).getLexeme())
-<<<<<<< HEAD
             && !"class".equals(((Token) tokenList.get(i)).getLexeme())
             && incrementCheck(i)) {
-=======
-                && !"class".equals(((Token) tokenList.get(i)).getLexeme())
-                && incrementCheck()) {
->>>>>>> 6458d99db4635e3dc4e94a495c3c9d082ad3fb77
             increment();
         }
         if ("method".equals(((Token) tokenList.get(i)).getLexeme())) {
             methodDeclarationStructure();
-        } else if ("class".equals(((Token) tokenList.get(i)).getLexeme())) {
+        } else if ("class".equals(((Token) tokenList.get(i)).getLexeme())){
             classStructure();
         }
     }
-
+    
     private void methodParameterDeclarationStructure() throws IOException {
         if (keywordType(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
@@ -1258,21 +1256,16 @@ public class Parsing {
         return (lexeme.equals("int")) || (lexeme.equals("float")) || (lexeme.equals("bool")) || (lexeme.equals("string")) || (lexeme.equals("void"));
     }
 
-    private void increment() throws IOException {
+     private void increment() throws IOException{
         i++;
         if (!incrementCheck(i)) {
             System.out.println("Index Out Of Bounds Exception.");
             printError();
             System.exit(0);
-        }
+       }
     }
-<<<<<<< HEAD
     
     private boolean incrementCheck(int i){
-=======
-
-    private boolean incrementCheck() {
->>>>>>> 6458d99db4635e3dc4e94a495c3c9d082ad3fb77
         return tokenList.size() > i;
     }
 
