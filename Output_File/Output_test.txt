@@ -1,158 +1,32 @@
-const Keyword
+class Keyword
+
+a Identifier
 
 { Delimiter
 
+method Keyword
+
 int Keyword
+
+a Identifier
+
+( Delimiter
+
+) Delimiter
+
+{ Delimiter
 
 a Identifier
 
 = RelationalOperator
 
-2 Number
+a Identifier
+
++ ArithmaticOperator
+
+0 Number
 
 ; Delimiter
-
-} Delimiter
-
-class Keyword
-
-x Identifier
-
-{ Delimiter
-
-method Keyword
-
-int Keyword
-
-a Identifier
-
-( Delimiter
-
-int Keyword
-
-a Identifier
-
-, Delimiter
-
-int Keyword
-
-b Identifier
-
-) Delimiter
-
-{ Delimiter
-
-while Keyword
-
-( Delimiter
-
-a Identifier
-
-) Delimiter
-
-{ Delimiter
-
-if Keyword
-
-( Delimiter
-
-! LogicalOperator
-
-c Identifier
-
-) Delimiter
-
-then Keyword
-
-{ Delimiter
-
-a Identifier
-
-; Delimiter
-
-} Delimiter
-
-else Keyword
-
-{ Delimiter
-
-} Delimiter
-
-} Delimiter
-
-} Delimiter
-
-} Delimiter
-
-class Keyword
-
-y Identifier
-
-{ Delimiter
-
-method Keyword
-
-void Keyword
-
-oi Identifier
-
-( Delimiter
-
-int Keyword
-
-a Identifier
-
-[ Delimiter
-
-] Delimiter
-
-, Delimiter
-
-int Keyword
-
-b Identifier
-
-) Delimiter
-
-{ Delimiter
-
-while Keyword
-
-( Delimiter
-
-a Identifier
-
-) Delimiter
-
-{ Delimiter
-
-if Keyword
-
-( Delimiter
-
-! LogicalOperator
-
-c Identifier
-
-) Delimiter
-
-then Keyword
-
-{ Delimiter
-
-a Identifier
-
-; Delimiter
-
-} Delimiter
-
-else Keyword
-
-{ Delimiter
-
-} Delimiter
-
-} Delimiter
 
 } Delimiter
 
