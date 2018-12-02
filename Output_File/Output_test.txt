@@ -22,11 +22,21 @@ x Identifier
 
 method Keyword
 
-float Keyword
+int Keyword
 
 a Identifier
 
 ( Delimiter
+
+int Keyword
+
+a Identifier
+
+, Delimiter
+
+int Keyword
+
+b Identifier
 
 ) Delimiter
 
@@ -58,22 +68,6 @@ then Keyword
 
 a Identifier
 
-= RelationalOperator
-
-sad Identifier
-
-+ ArithmaticOperator
-
-sad Identifier
-
-- ArithmaticOperator
-
-asd Identifier
-
-( Delimiter
-
-) Delimiter
-
 ; Delimiter
 
 } Delimiter
@@ -82,13 +76,79 @@ else Keyword
 
 { Delimiter
 
+} Delimiter
+
+} Delimiter
+
+} Delimiter
+
+} Delimiter
+
+class Keyword
+
+y Identifier
+
+{ Delimiter
+
+method Keyword
+
+void Keyword
+
+oi Identifier
+
+( Delimiter
+
+int Keyword
+
 a Identifier
 
-= RelationalOperator
+[ Delimiter
 
-sad Identifier
+] Delimiter
+
+, Delimiter
+
+int Keyword
+
+b Identifier
+
+) Delimiter
+
+{ Delimiter
+
+while Keyword
+
+( Delimiter
+
+a Identifier
+
+) Delimiter
+
+{ Delimiter
+
+if Keyword
+
+( Delimiter
+
+! LogicalOperator
+
+c Identifier
+
+) Delimiter
+
+then Keyword
+
+{ Delimiter
+
+a Identifier
 
 ; Delimiter
+
+} Delimiter
+
+else Keyword
+
+{ Delimiter
 
 } Delimiter
 

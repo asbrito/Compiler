@@ -3,19 +3,34 @@ const {
 }
 class x{
 
-	method float a(){
+	method int a(int a, int b){
 
 		while(a){		
 
-			if (!c) then{
-
-				a = sad + sad - asd();
-
-			 }else {
-				a = sad;
-			}
-
+			if (!c) then {
+				
+				a;
+				
+			} else{}
 		}
 
+
 	}
+	
+}
+class y{
+	method void oi (int a[], int b){
+
+		while(a){		
+
+			if (!c) then {
+				
+				a;
+				
+			} else{}
+		}
+
+
+	}
+
 }
