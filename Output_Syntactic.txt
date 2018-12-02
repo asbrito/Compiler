@@ -1,1 +1,4 @@
-SUCESSO! Nenhum erro sitático econtrado!
+Erro sitático econtrado!
+Na linha 100 é esperado: 
+'}' 
+ e consta: 'End of file exception'

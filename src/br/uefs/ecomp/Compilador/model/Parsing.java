@@ -655,6 +655,7 @@ public class Parsing {
 
     private void returnStructure() throws IOException {
         if ("return".equals(((Token) tokenList.get(i)).getLexeme())) {
+            increment();
             if ("-".equals(((Token) tokenList.get(i)).getLexeme())
                     || "--".equals(((Token) tokenList.get(i)).getLexeme())
                     || "!".equals(((Token) tokenList.get(i)).getLexeme())

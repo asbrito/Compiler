@@ -342,17 +342,15 @@ public final class Lexical {
     }
     
     public void readInputFileName() throws IOException{
-        File dir = new File ("teste");
+        File dir = new File ("");
         dir.mkdir();
         File file = new File(dir.getAbsolutePath());
         inputFileName = file.listFiles();
         for (File arquivos : inputFileName) {
-            if(arquivos.getName().endsWith(".txt")){
+            if(arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_Syntactic"))){
                 CheckFiles(arquivos.getAbsolutePath());
                 writeOutputFile(arquivos.getName());
-                //tokenList.clear();
-                //errorList.clear();
-                //line=1;
+                
             }
         }
     }
