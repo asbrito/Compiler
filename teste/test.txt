@@ -1,5 +1,5 @@
 const {
-	int a = 2;
+	int a = 2, b = 3;
 }
 class x{
 
@@ -18,8 +18,9 @@ class x{
 	}
 	
 }
-class y{
-	method void oi (int a[], int b){
+class AMEM{
+
+	method int a(int a, int b){
 
 		while(a){		
 
@@ -32,5 +33,5 @@ class y{
 
 
 	}
-
+	
 }

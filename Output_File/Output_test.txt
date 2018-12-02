@@ -10,6 +10,14 @@ a Identifier
 
 2 Number
 
+, Delimiter
+
+b Identifier
+
+= RelationalOperator
+
+3 Number
+
 ; Delimiter
 
 } Delimiter
@@ -86,25 +94,21 @@ else Keyword
 
 class Keyword
 
-y Identifier
+AMEM Identifier
 
 { Delimiter
 
 method Keyword
 
-void Keyword
+int Keyword
 
-oi Identifier
+a Identifier
 
 ( Delimiter
 
 int Keyword
 
 a Identifier
-
-[ Delimiter
-
-] Delimiter
 
 , Delimiter
 

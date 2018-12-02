@@ -187,14 +187,13 @@ public class Parsing {
                     if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
                         System.out.println(((Token) tokenList.get(i)).getLexeme());
                         System.out.println("SUCESSO em classe");
-                        increment();
-
+                        moreClassesStructure();
                     } else {
                         LinkedList l = new LinkedList();
                         l.add("}");
                         errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
                         while (!"}".equals(((Token) tokenList.get(i)).getLexeme())
-                                && !"class".equals(((Token) tokenList.get(i)).getLexeme())) {
+                            && !"class".equals(((Token) tokenList.get(i)).getLexeme())) {
                             increment();
                         }
                     }
@@ -226,11 +225,15 @@ public class Parsing {
     }
 
     private void moreClassesStructure() throws IOException {
-        if (incrementCheck()) {
+        int j = i +1;
+        if (incrementCheck(j)) {
+            increment();
             if ("class".equals(((Token) tokenList.get(i)).getLexeme())) {
                 classStructure();
                 moreClassesStructure();
             }
+        } else{
+            System.exit(0);
         }
     }
 
@@ -445,7 +448,7 @@ public class Parsing {
     private void methodError() throws IOException{
         while (!"method".equals(((Token) tokenList.get(i)).getLexeme())
             && !"class".equals(((Token) tokenList.get(i)).getLexeme())
-            && incrementCheck()) {
+            && incrementCheck(i)) {
             increment();
         }
         if ("method".equals(((Token) tokenList.get(i)).getLexeme())) {
@@ -1197,14 +1200,14 @@ public class Parsing {
     
     private void increment() throws IOException{
         i++;
-        if (!incrementCheck()) {
+        if (!incrementCheck(i)) {
             System.out.println("Index Out Of Bounds Exception.");
             printError();
             System.exit(0);
        }
     }
     
-    private boolean incrementCheck(){
+    private boolean incrementCheck(int i){
         return tokenList.size() > i;
     }
 

@@ -12,9 +12,9 @@ import java.util.LinkedList;
  * @author adrie
  */
 public class SyntacticError {
-    private LinkedList expectedToken;
-    private int line;
-    private Token token;
+    private final LinkedList expectedToken;
+    private final int line;
+    private final Token token;
 
     public Token getToken() {
         return token;
