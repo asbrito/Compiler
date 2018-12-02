@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const Keyword
 
 { Delimiter
@@ -22,9 +23,11 @@ b Identifier
 
 } Delimiter
 
+=======
+>>>>>>> 6458d99db4635e3dc4e94a495c3c9d082ad3fb77
 class Keyword
 
-x Identifier
+a Identifier
 
 { Delimiter
 
@@ -36,40 +39,9 @@ a Identifier
 
 ( Delimiter
 
-int Keyword
-
-a Identifier
-
-, Delimiter
-
-int Keyword
-
-b Identifier
-
 ) Delimiter
 
-{ Delimiter
-
-while Keyword
-
-( Delimiter
-
-a Identifier
-
-) Delimiter
-
-{ Delimiter
-
-if Keyword
-
-( Delimiter
-
-! LogicalOperator
-
-c Identifier
-
-) Delimiter
-
+<<<<<<< HEAD
 then Keyword
 
 { Delimiter
@@ -123,40 +95,21 @@ b Identifier
 while Keyword
 
 ( Delimiter
-
-a Identifier
-
-) Delimiter
-
-{ Delimiter
-
-if Keyword
-
-( Delimiter
-
-! LogicalOperator
-
-c Identifier
-
-) Delimiter
-
-then Keyword
-
+=======
 { Delimiter
 
 a Identifier
+
+= RelationalOperator
+>>>>>>> 6458d99db4635e3dc4e94a495c3c9d082ad3fb77
+
+a Identifier
+
++ ArithmaticOperator
+
+0 Number
 
 ; Delimiter
-
-} Delimiter
-
-else Keyword
-
-{ Delimiter
-
-} Delimiter
-
-} Delimiter
 
 } Delimiter
 

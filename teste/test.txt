@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const {
 	int a = 2, b = 3;
 }
@@ -35,3 +36,10 @@ class AMEM{
 	}
 	
 }
+=======
+class a{
+	method int a (){
+		a = a + 0;
+	}
+}
+>>>>>>> 6458d99db4635e3dc4e94a495c3c9d082ad3fb77
