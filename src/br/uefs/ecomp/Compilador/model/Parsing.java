@@ -22,11 +22,13 @@ public class Parsing {
     private final LinkedList tokenList;
     private final LinkedList errorList;
     private int i;
+    String nameFile;
 
-    public Parsing(LinkedList tokenList) {
+    public Parsing(LinkedList tokenList, String name) {
         this.tokenList = tokenList;
         this.errorList = new LinkedList();
         this.i = 0;
+        this.nameFile = name;
     }
 
     public boolean controllerParsing() throws IOException {
@@ -43,7 +45,7 @@ public class Parsing {
     }
 
     private void printError() throws IOException {
-        FileWriter file2 = new FileWriter("Output_Syntactic.txt");
+        FileWriter file2 = new FileWriter("Output_Syntactic_"+nameFile);
         PrintWriter writefile = new PrintWriter(file2);
         if (!errorList.isEmpty()) {
             System.out.println("Erro sitático econtrado!");

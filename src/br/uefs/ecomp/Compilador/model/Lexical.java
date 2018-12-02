@@ -350,6 +350,8 @@ public final class Lexical {
             if(arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_Syntactic"))){
                 CheckFiles(arquivos.getAbsolutePath());
                 writeOutputFile(arquivos.getName());
+                Parsing parser = new Parsing(tokenList, arquivos.getName());
+                parser.controllerParsing();
                 
             }
         }
