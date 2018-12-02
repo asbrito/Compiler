@@ -211,7 +211,7 @@ public class Parsing {
                         else{
                             errorList.add(new SyntacticError(l, i));
                             printError();
-                            System.exit(0);
+                            return;
                         }
                     }
                 } else {
@@ -260,7 +260,7 @@ public class Parsing {
             }
         } else{
             printError();
-            System.exit(0);
+            return;
         }
     }
 
@@ -433,7 +433,7 @@ public class Parsing {
                                             l.add("}");
                                             errorList.add(new SyntacticError(l, j));
                                             printError();
-                                            System.exit(0);
+                                            return;
                                         }
                                     }else{
                                         LinkedList l = new LinkedList();
@@ -1423,7 +1423,7 @@ public class Parsing {
             System.out.println("Index Out Of Bounds Exception.");
             errorList.add(new SyntacticError(i-1));
             printError();
-            System.exit(0);
+            return;
        }
     }
     
