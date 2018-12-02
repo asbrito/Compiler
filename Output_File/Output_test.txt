@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const Keyword
 
 { Delimiter
@@ -23,50 +22,9 @@ b Identifier
 
 } Delimiter
 
-=======
->>>>>>> 6458d99db4635e3dc4e94a495c3c9d082ad3fb77
 class Keyword
 
-a Identifier
-
-{ Delimiter
-
-method Keyword
-
-int Keyword
-
-a Identifier
-
-( Delimiter
-
-) Delimiter
-
-<<<<<<< HEAD
-then Keyword
-
-{ Delimiter
-
-a Identifier
-
-; Delimiter
-
-} Delimiter
-
-else Keyword
-
-{ Delimiter
-
-} Delimiter
-
-} Delimiter
-
-} Delimiter
-
-} Delimiter
-
-class Keyword
-
-AMEM Identifier
+x Identifier
 
 { Delimiter
 
@@ -92,24 +50,85 @@ b Identifier
 
 { Delimiter
 
-while Keyword
+} Delimiter
+
+method Keyword
+
+int Keyword
+
+a Identifier
 
 ( Delimiter
-=======
+
+int Keyword
+
+a Identifier
+
+, Delimiter
+
+int Keyword
+
+b Identifier
+
+) Delimiter
+
 { Delimiter
 
+} Delimiter
+
+} Delimiter
+
+class Keyword
+
+y Identifier
+
+{ Delimiter
+
+method Keyword
+
+int Keyword
+
 a Identifier
 
-= RelationalOperator
->>>>>>> 6458d99db4635e3dc4e94a495c3c9d082ad3fb77
+( Delimiter
+
+int Keyword
 
 a Identifier
 
-+ ArithmaticOperator
+, Delimiter
 
-0 Number
+int Keyword
 
-; Delimiter
+b Identifier
+
+) Delimiter
+
+{ Delimiter
+
+} Delimiter
+
+method Keyword
+
+int Keyword
+
+a Identifier
+
+( Delimiter
+
+int Keyword
+
+a Identifier
+
+, Delimiter
+
+int Keyword
+
+b Identifier
+
+) Delimiter
+
+{ Delimiter
 
 } Delimiter
 

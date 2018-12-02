@@ -20,6 +20,10 @@ public class Token {
         this.lexeme = lexeme;
         this.line = line;
     }
+    
+    Token(String lexeme) {
+        this.lexeme = lexeme;
+    }
 
     
     public Type getType() {

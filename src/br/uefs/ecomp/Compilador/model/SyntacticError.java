@@ -26,6 +26,17 @@ public class SyntacticError {
         this.token = token;
     }
 
+    public SyntacticError(LinkedList expectedToken, int line) {
+        this.expectedToken = expectedToken;
+        this.line = line;
+        this.token = new Token("End of file exception");
+    }
+    public SyntacticError(int line) {
+        this.expectedToken = new LinkedList ();
+        expectedToken.add("");
+        this.line = line;
+        this.token = new Token("End of file exception");
+    }
     
     public LinkedList getExpectedToken() {
         return expectedToken;
