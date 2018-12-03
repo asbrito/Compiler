@@ -1,7 +1,0 @@
-Erro sitático econtrado!
-Na linha 3 é esperado: 
-';' 
- e consta: '='
-Na linha 27 é esperado: 
-'}' 
- e consta: 'class'

@@ -1,7 +1,0 @@
-Erro sitático econtrado!
-Na linha 3 é esperado: 
-';' 
- e consta: '='
-Na linha 99 é esperado: 
-'}' 
- e consta: 'End of file exception'

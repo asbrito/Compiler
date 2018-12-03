@@ -341,6 +341,20 @@ public final class Lexical {
         }
     }
     
+
+    public void readInputFileName() throws IOException{
+        File dir = new File ("");
+        dir.mkdir();
+        File file = new File(dir.getAbsolutePath());
+        inputFileName = file.listFiles();
+        for (File arquivos : inputFileName) {
+            if(arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_Syntactic"))){
+                CheckFiles(arquivos.getAbsolutePath());
+                writeOutputFile(arquivos.getName());
+            }
+        }
+    }
+    
     public void writeOutputFile(String name) throws IOException{
         File file = new File ("teste");
         file.mkdir();
