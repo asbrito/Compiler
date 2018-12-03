@@ -22,7 +22,6 @@ public final class Lexical {
     private final LinkedList tokenList;
     private final LinkedList errorList;
     private int line;
-    private File inputFileName[];
     
     public Lexical() throws IOException{
         tokenList = new LinkedList();
@@ -341,25 +340,11 @@ public final class Lexical {
         }
     }
     
-
-    public void readInputFileName() throws IOException{
-        File dir = new File ("");
-        dir.mkdir();
-        File file = new File(dir.getAbsolutePath());
-        inputFileName = file.listFiles();
-        for (File arquivos : inputFileName) {
-            if(arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_Syntactic"))){
-                CheckFiles(arquivos.getAbsolutePath());
-                writeOutputFile(arquivos.getName());
-            }
-        }
-    }
-    
     public void writeOutputFile(String name) throws IOException{
         File file = new File ("teste");
         file.mkdir();
         String dir = file.getAbsolutePath();
-        FileWriter file2 = new FileWriter(dir+"\\Output_"+name);
+        FileWriter file2 = new FileWriter(dir+"\\Output_Lexical_"+name);
         PrintWriter writefile = new PrintWriter(file2);
         for(int i = 0; i < tokenList.size(); i++){
             writefile.println(((Token)tokenList.get(i)).getLexeme()+" "+((Token)tokenList.get(i)).getType()+"\n");  

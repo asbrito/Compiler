@@ -24,8 +24,6 @@ public class Compiler {
      * @throws java.io.FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        Lexical lexical = new Lexical(); 
-        Parsing parser;
         File dir = new File ("teste");
         dir.mkdir();
         File file = new File(dir.getAbsolutePath());
@@ -34,9 +32,10 @@ public class Compiler {
         for (File arquivos : inputFileName) {
             
             if(arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_"))){
+                Lexical lexical = new Lexical(); 
                 lexical.CheckFiles(arquivos.getAbsolutePath());
-                parser = new Parsing(lexical.getTokenList(), arquivos.getName());
-                parser.controllerParsing();
+                Parsing parser = new Parsing(lexical.getTokenList(), arquivos.getName());
+                parser.controllerParsing(lexical.getTokenList(), arquivos.getName());
             }
         }
     }
