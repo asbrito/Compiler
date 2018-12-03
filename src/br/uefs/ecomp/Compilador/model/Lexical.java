@@ -23,7 +23,7 @@ public final class Lexical {
     private final LinkedList errorList;
     private int line;
     private File inputFileName[];
-
+    
     public Lexical() throws IOException{
         tokenList = new LinkedList();
         errorList = new LinkedList();
@@ -341,24 +341,8 @@ public final class Lexical {
         }
     }
     
-    public void readInputFileName() throws IOException{
-        File dir = new File ("");
-        dir.mkdir();
-        File file = new File(dir.getAbsolutePath());
-        inputFileName = file.listFiles();
-        for (File arquivos : inputFileName) {
-            if(arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_Syntactic"))){
-                CheckFiles(arquivos.getAbsolutePath());
-                writeOutputFile(arquivos.getName());
-                Parsing parser = new Parsing(tokenList, arquivos.getName());
-                parser.controllerParsing();
-                
-            }
-        }
-    }
-    
     public void writeOutputFile(String name) throws IOException{
-        File file = new File ("Output_File");
+        File file = new File ("teste");
         file.mkdir();
         String dir = file.getAbsolutePath();
         FileWriter file2 = new FileWriter(dir+"\\Output_"+name);
@@ -366,10 +350,10 @@ public final class Lexical {
         for(int i = 0; i < tokenList.size(); i++){
             writefile.println(((Token)tokenList.get(i)).getLexeme()+" "+((Token)tokenList.get(i)).getType()+"\n");  
         }
-        writefile.println(" \r\n ERROR:  \r\n");
         if(errorList.isEmpty()){
             writefile.println("Nenhum erro léxico encontrado!");
         }else{
+            writefile.println(" \r\n ERROR:  \r\n");
             for(int i = 0; i < errorList.size(); i++){
                 writefile.println("Linha " + ((LexicalError)errorList.get(i)).getLine() +":" + ((LexicalError)errorList.get(i)).getLexeme() + " " + ((LexicalError)errorList.get(i)).getType());
             }

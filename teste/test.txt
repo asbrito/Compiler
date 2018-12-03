@@ -1,6 +1,6 @@
 const{
 	int a = 4, b = 5, c = 6;
-	float d = 7.5, e = 8.5;
+	float  = 7.5, e = 8.5;
 }
 class teste extends teste2{
 
