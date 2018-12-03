@@ -1,0 +1,4 @@
+Erro sitático econtrado!
+Na linha 3 é esperado: 
+'{' 
+ e consta: 'int'

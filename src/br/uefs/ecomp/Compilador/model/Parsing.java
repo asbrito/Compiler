@@ -12,6 +12,8 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +22,7 @@ import java.util.Stack;
 public class Parsing {
 
     private final LinkedList tokenList;
-    private final LinkedList errorList;
+    private  LinkedList errorList;
     private int i;
     String nameFile;
 
@@ -37,15 +39,27 @@ public class Parsing {
     }
 
     private void globalStructure() throws IOException {
-        constStructure();
-        classStructure();
-        moreClassesStructure();
+        try {
+            constStructure();
+        } catch (IndexOutOfBoundsException ex) {
+            return;
+        }
+        try {
+            classStructure();
+        } catch (IndexOutOfBoundsException ex) {
+            return;
+        }
+        try {
+            moreClassesStructure();
+        } catch (IndexOutOfBoundsException ex) {
+            return ;
+        }
 
         printError();
     }
 
     private void printError() throws IOException {
-        FileWriter file2 = new FileWriter("Output_Syntactic_"+nameFile);
+        FileWriter file2 = new FileWriter("Output_Syntactic_"+nameFile+".txt");
         PrintWriter writefile = new PrintWriter(file2);
         if (!errorList.isEmpty()) {
             System.out.println("Erro sitático econtrado!");
@@ -75,7 +89,7 @@ public class Parsing {
         file2.close();
     }
 
-    private void constStructure() throws IOException {
+    private void constStructure() throws IOException, IndexOutOfBoundsException {
         if ("const".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -87,26 +101,40 @@ public class Parsing {
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
                     increment();
                     System.out.println("SUCESSO em const.");
-                } else {
+                } 
+                else {
                     LinkedList l = new LinkedList();
                     l.add("}");
-                    errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
-                    while (!"}".equals(((Token) tokenList.get(i)).getLexeme())) {
-                        increment();
+                    if (incrementCheck(i)){
+                        errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
+                        while(!"class".equals(((Token) tokenList.get(i)).getLexeme())) {
+                            increment();
+                        }
+                        if("class".equals(((Token) tokenList.get(i)).getLexeme())){
+                            classStructure();
+                        }
+                    } 
+                    else{
+                        errorList.add(new SyntacticError(l, i));
+                        printError();
+                        throw new IndexOutOfBoundsException();
                     }
                 }
             } else {
                 LinkedList l = new LinkedList();
                 l.add("{");
                 errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
-                while (!"}".equals(((Token) tokenList.get(i)).getLexeme())) {
+                while (!"class".equals(((Token) tokenList.get(i)).getLexeme())) {
                     increment();
+                }
+                if("class".equals(((Token) tokenList.get(i)).getLexeme())){
+                    classStructure();
                 }
             }
         }
     }
 
-    private void constDeclarationStructure() throws IOException {
+    private void constDeclarationStructure() throws IOException, IndexOutOfBoundsException {
         if (keywordType(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -117,27 +145,11 @@ public class Parsing {
                 if (!("}".equals(((Token) tokenList.get(i)).getLexeme()))) {
                     constDeclarationStructure();
                 }
-            } else {
-                LinkedList l = new LinkedList();
-                l.add(";");
-                errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
-                while (!"}".equals(((Token) tokenList.get(i)).getLexeme())) {
-                    increment();
-                }
             }
-        } else {
-            LinkedList l = new LinkedList();
-            l.add("int");
-            l.add("float");
-            l.add("boolean");
-            errorList.add(new SyntacticError(l, ((Token) tokenList.get(i)).getLine(), ((Token) tokenList.get(i))));
-            while (!"}".equals(((Token) tokenList.get(i)).getLexeme())) {
-                increment();
-            }
-        }
+        } 
     }
 
-    private void moreConstStructure() throws IOException {
+    private void moreConstStructure() throws IOException, IndexOutOfBoundsException {
         if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -161,7 +173,7 @@ public class Parsing {
         }
     }
 
-    private void classStructure() throws IOException {
+    private void classStructure() throws IOException, IndexOutOfBoundsException {
         if ("class".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -211,7 +223,7 @@ public class Parsing {
                         else{
                             errorList.add(new SyntacticError(l, i));
                             printError();
-                            return;
+                            throw new IndexOutOfBoundsException();
                         }
                     }
                 } else {
@@ -250,7 +262,7 @@ public class Parsing {
         }
     }
 
-    private void moreClassesStructure() throws IOException {
+    private void moreClassesStructure() throws IOException, IndexOutOfBoundsException {
         int j = i +1;
         if (incrementCheck(j)) {
             increment();
@@ -260,11 +272,11 @@ public class Parsing {
             }
         } else{
             printError();
-            return;
+            throw new IndexOutOfBoundsException();
         }
     }
 
-    private void variableStructure() throws IOException {
+    private void variableStructure() throws IOException, IndexOutOfBoundsException {
         if ("variables".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -284,7 +296,7 @@ public class Parsing {
         }
     }
 
-    private void variableDeclarationStructure() throws IOException {
+    private void variableDeclarationStructure() throws IOException, IndexOutOfBoundsException {
         if (keywordType(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -367,7 +379,7 @@ public class Parsing {
         }
     }
 
-    private void moreVariableStructure() throws IOException {
+    private void moreVariableStructure() throws IOException, IndexOutOfBoundsException {
         if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -390,7 +402,7 @@ public class Parsing {
         }
     }
 
-    private void methodDeclarationStructure() throws IOException {
+    private void methodDeclarationStructure() throws IOException, IndexOutOfBoundsException {
         if ("method".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -433,7 +445,7 @@ public class Parsing {
                                             l.add("}");
                                             errorList.add(new SyntacticError(l, j));
                                             printError();
-                                            return;
+                                            throw new IndexOutOfBoundsException();
                                         }
                                     }else{
                                         LinkedList l = new LinkedList();
@@ -483,7 +495,7 @@ public class Parsing {
         }
     }
 
-    private void methodError() throws IOException{
+    private void methodError() throws IOException, IndexOutOfBoundsException{
         while (!"method".equals(((Token) tokenList.get(i)).getLexeme())
             && !"class".equals(((Token) tokenList.get(i)).getLexeme())
             && incrementCheck(i)) {
@@ -496,7 +508,7 @@ public class Parsing {
         }
     }
     
-    private void methodParameterDeclarationStructure() throws IOException {
+    private void methodParameterDeclarationStructure() throws IOException, IndexOutOfBoundsException {
         if (keywordType(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -526,7 +538,7 @@ public class Parsing {
         }
     }
 
-    private void commandsStructure() throws IOException {
+    private void commandsStructure() throws IOException, IndexOutOfBoundsException {
         if ("if".equals(((Token) tokenList.get(i)).getLexeme())) {
             ifStructure();
             commandsStructure();
@@ -541,7 +553,7 @@ public class Parsing {
             commandsStructure();
         } else if ("return".equals(((Token) tokenList.get(i)).getLexeme())) {
             returnStructure();
-            commandsStructure();
+            increment();
         } else if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())
                 || "--".equals(((Token) tokenList.get(i)).getLexeme())
                 || "++".equals(((Token) tokenList.get(i)).getLexeme())) {
@@ -566,7 +578,7 @@ public class Parsing {
         }
     }
 
-    private void atributtionStructure() throws IOException {
+    private void atributtionStructure() throws IOException, IndexOutOfBoundsException {
         if ("--".equals(((Token) tokenList.get(i)).getLexeme())
                 || "++".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
@@ -595,7 +607,7 @@ public class Parsing {
         }
     }
 
-    private void verificationSctructure() throws IOException {
+    private void verificationSctructure() throws IOException, IndexOutOfBoundsException {
         if ("(".equals(((Token) tokenList.get(i)).getLexeme())) {
             complementStructure();
         } else if ("--".equals(((Token) tokenList.get(i)).getLexeme())
@@ -623,7 +635,7 @@ public class Parsing {
         }
     }
 
-    private void normalAtributtionStructure() throws IOException {
+    private void normalAtributtionStructure() throws IOException, IndexOutOfBoundsException {
         if (Type.String.equals(((Token) tokenList.get(i)).getType())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -655,7 +667,7 @@ public class Parsing {
         }
     }
 
-    private void returnStructure() throws IOException {
+    private void returnStructure() throws IOException, IndexOutOfBoundsException {
         if ("return".equals(((Token) tokenList.get(i)).getLexeme())) {
             increment();
             if ("-".equals(((Token) tokenList.get(i)).getLexeme())
@@ -675,7 +687,7 @@ public class Parsing {
         }
     }
 
-    private void ifStructure() throws IOException {
+    private void ifStructure() throws IOException, IndexOutOfBoundsException {
         System.out.println(((Token) tokenList.get(i)).getLexeme());
         increment();
 
@@ -815,7 +827,7 @@ public class Parsing {
         }
     }
 
-    private void elseStructure() throws IOException {
+    private void elseStructure() throws IOException, IndexOutOfBoundsException {
         System.out.println(((Token) tokenList.get(i)).getLexeme());
         increment();
         if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
@@ -860,7 +872,7 @@ public class Parsing {
         }
     }
 
-    private void whileStructure() throws IOException {
+    private void whileStructure() throws IOException, IndexOutOfBoundsException {
         Stack whileStructureStack = new Stack();
         whileStructureStack.add(((Token) tokenList.get(i)));
         System.out.println(((Token) tokenList.get(i)).getLexeme());
@@ -924,7 +936,7 @@ public class Parsing {
         }
     }
 
-    private void writeStructure() throws IOException {
+    private void writeStructure() throws IOException, IndexOutOfBoundsException {
         if ("write".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -967,7 +979,7 @@ public class Parsing {
         }
     }
 
-    private void readStructure() throws IOException {
+    private void readStructure() throws IOException, IndexOutOfBoundsException {
         if ("read".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1015,7 +1027,7 @@ public class Parsing {
         }
     }
 
-    private void writeparameterStructure() throws IOException {
+    private void writeparameterStructure() throws IOException, IndexOutOfBoundsException {
         if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1038,7 +1050,7 @@ public class Parsing {
         }
     }
 
-    private void readparameterStructure() throws IOException {
+    private void readparameterStructure() throws IOException, IndexOutOfBoundsException {
         if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1058,7 +1070,7 @@ public class Parsing {
         }
     }
 
-    private void write2Structure() throws IOException {
+    private void write2Structure() throws IOException, IndexOutOfBoundsException {
         if (",".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1077,7 +1089,7 @@ public class Parsing {
         }
     }
 
-    private void read2Structure() throws IOException {
+    private void read2Structure() throws IOException, IndexOutOfBoundsException {
         if (",".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1096,7 +1108,7 @@ public class Parsing {
         }
     }
 
-    private void attributeStructure() throws IOException {
+    private void attributeStructure() throws IOException, IndexOutOfBoundsException {
         if (".".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1119,7 +1131,7 @@ public class Parsing {
         }
     }
 
-    private void arrayStructure() throws IOException {
+    private void arrayStructure() throws IOException, IndexOutOfBoundsException {
         if ("[".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1162,12 +1174,12 @@ public class Parsing {
         }
     }
 
-    private void expressionStructure() throws IOException {
+    private void expressionStructure() throws IOException, IndexOutOfBoundsException {
         addStructure();
         relacionalStructure();
     }
 
-    private void relacionalStructure() throws IOException {
+    private void relacionalStructure() throws IOException, IndexOutOfBoundsException {
         if (Type.RelationalOperator.equals(((Token) tokenList.get(i)).getType())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1179,7 +1191,7 @@ public class Parsing {
 
     }
 
-    private void logicalStructure() throws IOException {
+    private void logicalStructure() throws IOException, IndexOutOfBoundsException {
         if ("||".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1191,12 +1203,12 @@ public class Parsing {
         }
     }
 
-    private void addStructure() throws IOException {
+    private void addStructure() throws IOException, IndexOutOfBoundsException {
         multStrucute();
         dStructure();
     }
 
-    private void dStructure() throws IOException {
+    private void dStructure() throws IOException, IndexOutOfBoundsException {
         if ("+".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1208,12 +1220,12 @@ public class Parsing {
         }
     }
 
-    private void multStrucute() throws IOException {
+    private void multStrucute() throws IOException, IndexOutOfBoundsException {
         negStrucute();
         eStructure();
     }
 
-    private void eStructure() throws IOException {
+    private void eStructure() throws IOException, IndexOutOfBoundsException {
         if ("*".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1225,7 +1237,7 @@ public class Parsing {
         }
     }
 
-    private void negStrucute() throws IOException {
+    private void negStrucute() throws IOException, IndexOutOfBoundsException {
         if ("-".equals(((Token) tokenList.get(i)).getLexeme())
                 || "!".equals(((Token) tokenList.get(i)).getLexeme())
                 || "++".equals(((Token) tokenList.get(i)).getLexeme())
@@ -1243,7 +1255,7 @@ public class Parsing {
         }
     }
 
-    private void gStructure() throws IOException {
+    private void gStructure() throws IOException, IndexOutOfBoundsException {
         if ("--".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1253,7 +1265,7 @@ public class Parsing {
         }
     }
 
-    private void expValueStructure() throws IOException {
+    private void expValueStructure() throws IOException, IndexOutOfBoundsException {
         if (Type.Number.equals(((Token) tokenList.get(i)).getType())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1298,7 +1310,7 @@ public class Parsing {
         }
     }
 
-    private void complementStructure() throws IOException {
+    private void complementStructure() throws IOException, IndexOutOfBoundsException {
         if ("(".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1321,7 +1333,7 @@ public class Parsing {
         }
     }
 
-    private void ParamStrucuture() throws IOException {
+    private void ParamStrucuture() throws IOException, IndexOutOfBoundsException {
         if (Type.String.equals(((Token) tokenList.get(i)).getType())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1358,7 +1370,7 @@ public class Parsing {
 
     }
 
-    private void moreParamSctruture() throws IOException {
+    private void moreParamSctruture() throws IOException, IndexOutOfBoundsException {
         if (",".equals(((Token) tokenList.get(i)).getLexeme())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1378,7 +1390,7 @@ public class Parsing {
         }
     }
 
-    private void obrigatoryParamStrucuture() throws IOException {
+    private void obrigatoryParamStrucuture() throws IOException, IndexOutOfBoundsException {
         if (Type.String.equals(((Token) tokenList.get(i)).getType())) {
             System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
@@ -1417,13 +1429,13 @@ public class Parsing {
         return (lexeme.equals("int")) || (lexeme.equals("float")) || (lexeme.equals("bool")) || (lexeme.equals("string")) || (lexeme.equals("void"));
     }
 
-     private void increment() throws IOException{
+     private void increment() throws IOException, IndexOutOfBoundsException{
         i++;
         if (!incrementCheck(i)) {
             System.out.println("Index Out Of Bounds Exception.");
             errorList.add(new SyntacticError(i-1));
             printError();
-            return;
+            throw new IndexOutOfBoundsException();
        }
     }
     

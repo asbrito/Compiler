@@ -350,15 +350,15 @@ public final class Lexical {
             if(arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_Syntactic"))){
                 CheckFiles(arquivos.getAbsolutePath());
                 writeOutputFile(arquivos.getName());
-                Parsing parser = new Parsing(tokenList, arquivos.getName());
-                parser.controllerParsing();
-                
             }
         }
     }
     
     public void writeOutputFile(String name) throws IOException{
-        File file = new File ("Output_File");
+        Parsing parser = new Parsing(tokenList, name);
+        parser.controllerParsing();
+        
+        /*File file = new File ("Output_File");
         file.mkdir();
         String dir = file.getAbsolutePath();
         FileWriter file2 = new FileWriter(dir+"\\Output_"+name);
@@ -374,7 +374,7 @@ public final class Lexical {
                 writefile.println("Linha " + ((LexicalError)errorList.get(i)).getLine() +":" + ((LexicalError)errorList.get(i)).getLexeme() + " " + ((LexicalError)errorList.get(i)).getType());
             }
         }
-        file2.close();
+        file2.close();*/
     }
     
     
