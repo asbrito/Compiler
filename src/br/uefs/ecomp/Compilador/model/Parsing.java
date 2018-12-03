@@ -9,11 +9,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -33,7 +30,10 @@ public class Parsing {
         this.nameFile = name;
     }
 
-    public boolean controllerParsing() throws IOException {
+    public boolean controllerParsing(LinkedList tokenList, String name) throws IOException {
+        tokenList = tokenList;
+        errorList = new LinkedList();
+        i = 0;
         globalStructure();
         return false;
     }
@@ -51,16 +51,13 @@ public class Parsing {
 
     private void constStructure() throws IOException, IndexOutOfBoundsException {
         if ("const".equals(((Token) tokenList.get(i)).getLexeme())) {
-            System.out.println(((Token) tokenList.get(i)).getLexeme());
             increment();
             if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
-                System.out.println(((Token) tokenList.get(i)).getLexeme());
                 increment();
                 constDeclarationStructure();
                 if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
                     System.out.println(((Token) tokenList.get(i)).getLexeme());
                     increment();
-                    System.out.println("SUCESSO em const.");
                 } else {
                     LinkedList l = new LinkedList();
                     l.add("}");
@@ -1285,7 +1282,7 @@ public class Parsing {
         File file = new File ("teste");
         file.mkdir();
         String dir = file.getAbsolutePath();
-        FileWriter file2 = new FileWriter(dir+"\\Output_Syntactic_"+nameFile+".txt");
+        FileWriter file2 = new FileWriter(dir+"\\Output_Syntactic_"+nameFile);
         PrintWriter writefile = new PrintWriter(file2);
         if (!errorList.isEmpty()) {
             System.out.println("Erro sitático econtrado!");

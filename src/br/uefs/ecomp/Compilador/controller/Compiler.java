@@ -34,10 +34,9 @@ public class Compiler {
         for (File arquivos : inputFileName) {
             
             if(arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_"))){
-                System.out.println("XIBIU");
                 lexical.CheckFiles(arquivos.getAbsolutePath());
                 parser = new Parsing(lexical.getTokenList(), arquivos.getName());
-                parser.controllerParsing();
+                parser.controllerParsing(lexical.getTokenList(), arquivos.getName());
             }
         }
     }
