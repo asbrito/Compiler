@@ -33,6 +33,7 @@ public class Compiler {
             
             if(arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_"))){
                 Lexical lexical = new Lexical(); 
+                lexical.setLine(1);
                 lexical.CheckFiles(arquivos.getAbsolutePath());
                 Parsing parser = new Parsing(lexical.getTokenList(), arquivos.getName());
                 parser.controllerParsing(lexical.getTokenList(), arquivos.getName());

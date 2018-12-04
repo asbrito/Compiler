@@ -32,6 +32,10 @@ public final class Lexical {
     public LinkedList getTokenList() {
         return tokenList;
     }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
     
     public void CheckFiles(String name) throws FileNotFoundException, IOException{
         char c = 0;
