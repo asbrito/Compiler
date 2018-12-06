@@ -38,15 +38,20 @@ public class Parsing {
         return false;
     }
 
-    private void globalStructure() throws IOException {
+    private boolean globalStructure() throws IOException    {
         try {
             constStructure();
             classStructure();
             moreClassesStructure();
         } catch (IndexOutOfBoundsException ex) {
-            return;
+            return false;
         }
-        printError();
+        if(printError()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     private void constStructure() throws IOException, IndexOutOfBoundsException {
@@ -1276,7 +1281,7 @@ public class Parsing {
        }
     }
     
-    private void printError() throws IOException {
+    private boolean printError() throws IOException {
         File file = new File ("teste");
         file.mkdir();
         String dir = file.getAbsolutePath();
@@ -1295,13 +1300,14 @@ public class Parsing {
             }
         } else {
             writefile.println("SUCESSO! Nenhum erro sitático econtrado!");
+            return true;
         }
-
         file2.close();
+        return false;
     }
      
     private boolean incrementCheck(int i){
         return tokenList.size() > i;
     }
-
+    
 }

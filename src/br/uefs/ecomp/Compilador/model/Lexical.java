@@ -344,7 +344,7 @@ public final class Lexical {
         }
     }
     
-    public void writeOutputFile(String name) throws IOException{
+    public boolean writeOutputFile(String name) throws IOException{
         File file = new File ("teste");
         file.mkdir();
         String dir = file.getAbsolutePath();
@@ -355,6 +355,7 @@ public final class Lexical {
         }
         if(errorList.isEmpty()){
             writefile.println("Nenhum erro léxico encontrado!");
+            return true;
         }else{
             writefile.println(" \r\n ERROR:  \r\n");
             for(int i = 0; i < errorList.size(); i++){
@@ -362,6 +363,7 @@ public final class Lexical {
             }
         }
         file2.close();
+        return false;
     }
     
     

@@ -17,28 +17,33 @@ import java.util.LinkedList;
  * @author Adriel Brito & Natália Rosa
  */
 public class Compiler {
+
     private File inputFileName[];
-    
+
     /**
      * @param args the command line arguments
      * @throws java.io.FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        File dir = new File ("teste");
+        File dir = new File("teste");
         dir.mkdir();
         File file = new File(dir.getAbsolutePath());
-       
+
         File inputFileName[] = file.listFiles();
         for (File arquivos : inputFileName) {
-            
-            if(arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_"))){
-                Lexical lexical = new Lexical(); 
+
+            if (arquivos.getName().endsWith(".txt") && !(arquivos.getName().startsWith("Output_"))) {
+                Lexical lexical = new Lexical();
                 lexical.setLine(1);
                 lexical.CheckFiles(arquivos.getAbsolutePath());
-                Parsing parser = new Parsing(lexical.getTokenList(), arquivos.getName());
-                parser.controllerParsing(lexical.getTokenList(), arquivos.getName());
+
+                if (lexical.writeOutputFile(arquivos.getName())) {
+                    Parsing parser = new Parsing(lexical.getTokenList(), arquivos.getName());
+                    if(parser.controllerParsing(lexical.getTokenList(), arquivos.getName())){
+                        
+                    }
+                }
             }
         }
     }
 }
- 
