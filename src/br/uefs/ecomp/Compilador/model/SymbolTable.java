@@ -5,10 +5,14 @@
  */
 package br.uefs.ecomp.Compilador.model;
 
+import java.util.LinkedList;
+
 /**
  *
- * @author Adriel Brito e Natália Rosa
+ * @author adrie
  */
-public class Semantic {
+public class SymbolTable {
+    private LinkedList classesList;
+    private LinkedList methodList;
     
 }

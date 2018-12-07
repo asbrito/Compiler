@@ -14,7 +14,7 @@ import java.util.Stack;
 
 /**
  *
- * @author Natália Rosa e Adriel Brito
+ * @author Adriel Brito e Natália Rosa 
  */
 public class Parsing {
 
@@ -122,6 +122,7 @@ public class Parsing {
                 if ("extends".equals(((Token) tokenList.get(i)).getLexeme())) {
                     increment();
                     if ((Type.Identifier.equals(((Token) tokenList.get(i)).getType()))) {
+                        
                         increment();
                     } else {
                         LinkedList l = new LinkedList();
