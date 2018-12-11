@@ -56,7 +56,6 @@ public class Parsing {
                 increment();
                 constDeclarationStructure();
                 if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
-                    System.out.println(((Token) tokenList.get(i)).getLexeme());
                     increment();
                 } else {
                     LinkedList l = new LinkedList();
