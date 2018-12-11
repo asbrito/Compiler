@@ -5,6 +5,7 @@
  */
 package br.uefs.ecomp.Compilador.model;
 
+import br.uefs.ecomp.Compilador.model.Symbols.ConstantSymbol;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -79,12 +80,15 @@ public class Parsing {
                 }
             }
         }
-    }
+    } 
 
     private void constDeclarationStructure() throws IOException, IndexOutOfBoundsException {
+        ConstantSymbol constant = new ConstantSymbol();
+        constant.setScope("global");
         if (keywordType(((Token) tokenList.get(i)).getLexeme())) {
+            constant.setType(((Token) tokenList.get(i)).getLexeme());
             increment();
-            moreConstStructure();
+            moreConstStructure(constant);
             if (";".equals(((Token) tokenList.get(i)).getLexeme())) {
                 increment();
                 if (!("}".equals(((Token) tokenList.get(i)).getLexeme()))) {
@@ -94,20 +98,24 @@ public class Parsing {
         } 
     }
 
-    private void moreConstStructure() throws IOException, IndexOutOfBoundsException {
+    private void moreConstStructure(ConstantSymbol constant) throws IOException, IndexOutOfBoundsException {
         if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
+            constant.setIdentifier(((Token) tokenList.get(i)).getLexeme());
             increment();
             if ("=".equals(((Token) tokenList.get(i)).getLexeme())) {
                 increment();
-                if ((Type.Identifier.equals(((Token) tokenList.get(i)).getType()))
-                        || (Type.Number.equals(((Token) tokenList.get(i)).getType()))
+                if ((Type.Number.equals(((Token) tokenList.get(i)).getType()))
                         || (Type.String.equals(((Token) tokenList.get(i)).getType()))
                         || ("true".equals(((Token) tokenList.get(i)).getLexeme()))
                         || ("false".equals(((Token) tokenList.get(i)).getLexeme()))) {
+                    constant.setValue(((Token) tokenList.get(i)).getLexeme());
                     increment();
                     if (",".equals(((Token) tokenList.get(i)).getLexeme())) {
                         increment();
-                        moreConstStructure();
+                        ConstantSymbol constant1 = new ConstantSymbol();
+                        constant1.setType(constant.getType());
+                        constant1.setScope(constant.getType());
+                        moreConstStructure(constant);
                     }
                 }
             }
