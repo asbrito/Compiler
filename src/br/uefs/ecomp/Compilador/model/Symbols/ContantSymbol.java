@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uefs.ecomp.Compilador.model;
+package br.uefs.ecomp.Compilador.model.Symbols;
 
 /**
  *
  * @author adrie
  */
-public abstract class Symbol {
-    private Object scope;
-    private String type;
-    private String identifier;
-    
+public class ContantSymbol extends Symbol{
+    private String valor;
 }

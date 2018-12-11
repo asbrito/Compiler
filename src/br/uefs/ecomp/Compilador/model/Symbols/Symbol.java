@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uefs.ecomp.Compilador.model;
-
-import java.util.LinkedList;
+package br.uefs.ecomp.Compilador.model.Symbols;
 
 /**
  *
  * @author adrie
  */
-public class ConstSymbol{
-    private LinkedList constList;
+public abstract class Symbol {
+    private Object scope;
+    private String type;
+    private String identifier;
+    
 }

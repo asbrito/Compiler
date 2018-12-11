@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uefs.ecomp.Compilador.model;
+package br.uefs.ecomp.Compilador.model.Symbols;
+
+import java.util.LinkedList;
 
 /**
  *
  * @author adrie
  */
-public class VariablesSymbol extends Symbol{
-    
+public class MethodSymbol extends Symbol{
+    private LinkedList variablesList;
+    private LinkedList parameterList;
 }
