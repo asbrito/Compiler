@@ -1,13 +1,21 @@
-const{
-	int a = 4, b = 5, c = 6;
-	float d = 7.5, e = 8.5;
+const {
+	int a = 2, b = 3;
 }
-class teste extends teste2{
+class x{
 
-	
-	method int metodo1(){
-		return a;	
+	method int a(int a, int b){
+
 	}
+	method int a(int a, int b){}
+	
 
+}
+class y{
+
+	method int a(int a, int b){
+
+	}
+	method int a(int a, int b){
+	}
 
 }

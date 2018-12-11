@@ -11,4 +11,7 @@ package br.uefs.ecomp.Compilador.model;
  */
 public class Semantic {
     
+    private void typeCheckConst(){
+        
+    }
 }
