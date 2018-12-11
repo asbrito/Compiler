@@ -11,7 +11,6 @@ import java.util.LinkedList;
  *
  * @author adrie
  */
-public class SymbolTable {
-    private LinkedList tableList;
-    
+public class ConstSymbol{
+    private LinkedList constList;
 }

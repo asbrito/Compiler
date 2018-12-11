@@ -11,7 +11,7 @@ import java.util.LinkedList;
  *
  * @author adrie
  */
-public class SymbolTable {
-    private LinkedList tableList;
-    
+public class MethodSymbol {
+    private LinkedList variablesList;
+    private LinkedList parameterList;
 }

@@ -5,13 +5,10 @@
  */
 package br.uefs.ecomp.Compilador.model;
 
-import java.util.LinkedList;
-
 /**
  *
  * @author adrie
  */
-public class SymbolTable {
-    private LinkedList tableList;
+public class VariablesSymbol extends Symbol{
     
 }

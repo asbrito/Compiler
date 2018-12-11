@@ -9,9 +9,10 @@ import java.util.LinkedList;
 
 /**
  *
+    
  * @author adrie
  */
-public class SymbolTable {
-    private LinkedList tableList;
-    
+public class ClassSymbol extends Symbol{
+    private LinkedList attributeList;
+    private LinkedList methodList;
 }
