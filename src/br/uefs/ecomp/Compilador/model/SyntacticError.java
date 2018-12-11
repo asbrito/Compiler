@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author adrie
+ * @author Adriel Brito e Natália Rosa
  */
 public class SyntacticError {
     private final LinkedList expectedToken;

@@ -14,7 +14,7 @@ import java.util.Stack;
 
 /**
  *
- * @author Natália Rosa e Adriel Brito
+ * @author Adriel Brito e Natália Rosa 
  */
 public class Parsing {
 
@@ -38,15 +38,20 @@ public class Parsing {
         return false;
     }
 
-    private void globalStructure() throws IOException {
+    private boolean globalStructure() throws IOException    {
         try {
             constStructure();
             classStructure();
             moreClassesStructure();
         } catch (IndexOutOfBoundsException ex) {
-            return;
+            return false;
         }
-        printError();
+        if(printError()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     private void constStructure() throws IOException, IndexOutOfBoundsException {
@@ -117,6 +122,7 @@ public class Parsing {
                 if ("extends".equals(((Token) tokenList.get(i)).getLexeme())) {
                     increment();
                     if ((Type.Identifier.equals(((Token) tokenList.get(i)).getType()))) {
+                        
                         increment();
                     } else {
                         LinkedList l = new LinkedList();
@@ -1276,43 +1282,33 @@ public class Parsing {
        }
     }
     
-    private void printError() throws IOException {
-        System.out.println(nameFile);
+    private boolean printError() throws IOException {
         File file = new File ("teste");
         file.mkdir();
         String dir = file.getAbsolutePath();
         FileWriter file2 = new FileWriter(dir+"\\Output_Syntactic_"+nameFile);
         PrintWriter writefile = new PrintWriter(file2);
         if (!errorList.isEmpty()) {
-            System.out.println("Erro sitático econtrado!");
-            for (Object o : errorList) {
-                SyntacticError e = (SyntacticError) o;
-                System.out.print("Na linha " + e.getLine() + " é esperado: ");
-                for (Object o2 : e.getExpectedToken()) {
-                    String s = (String) o2;
-                    System.out.print("'" + s + "' ");
-                }
-                System.out.println(" e consta: '" + e.getToken().getLexeme() + "'");
-            }
             writefile.println("Erro sitático econtrado!");
             for (Object o : errorList) {
                 SyntacticError e = (SyntacticError) o;
                 writefile.println("Na linha " + e.getLine() + " é esperado: ");
                 for (Object o2 : e.getExpectedToken()) {
                     String s = (String) o2;
-                    writefile.println("'" + s + "' ");
+                    writefile.print("'" + s + "' ");
                 }
                 writefile.println(" e consta: '" + e.getToken().getLexeme() + "'");
             }
         } else {
             writefile.println("SUCESSO! Nenhum erro sitático econtrado!");
+            return true;
         }
-
         file2.close();
+        return false;
     }
      
     private boolean incrementCheck(int i){
         return tokenList.size() > i;
     }
-
+    
 }
