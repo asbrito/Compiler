@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uefs.ecomp.Compilador.model;
+package br.uefs.ecomp.Compilador.model.Symbols;
 
 import java.util.LinkedList;
 
@@ -13,5 +13,11 @@ import java.util.LinkedList;
  */
 public class ConstSymbol{
     private LinkedList constList;
+
+    public LinkedList getConstList() {
+        return constList;
+    }
+    
+    
     
 }
