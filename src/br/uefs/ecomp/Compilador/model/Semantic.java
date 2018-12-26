@@ -5,6 +5,7 @@
  */
 package br.uefs.ecomp.Compilador.model;
 
+import br.uefs.ecomp.Compilador.model.Symbols.ClassSymbol;
 import br.uefs.ecomp.Compilador.model.Symbols.ConstSymbol;
 import br.uefs.ecomp.Compilador.model.Symbols.ConstantSymbol;
 import br.uefs.ecomp.Compilador.model.Symbols.SymbolTable;
@@ -17,6 +18,15 @@ public class Semantic {
 
     private SymbolTable symbolTable;
     int i = 0;
+    
+    private void semanticController (){
+        if ((symbolTable.getTableList().get(i)) instanceof ConstSymbol) {
+            typeCheckConst();
+        }
+        else if ((symbolTable.getTableList().get(i)) instanceof ClassSymbol) {
+            checkClass();
+        }
+    }
 
     private void typeCheckConst() {
         if ((symbolTable.getTableList().get(i)) instanceof ConstSymbol) {
@@ -63,6 +73,8 @@ public class Semantic {
             }
         }
     }
-    
-    
+
+    private void checkClass() {
+    }
+  
 }
