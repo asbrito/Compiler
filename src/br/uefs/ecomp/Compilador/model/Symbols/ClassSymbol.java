@@ -15,4 +15,30 @@ import java.util.LinkedList;
 public class ClassSymbol extends Symbol{
     private LinkedList attributeList;
     private LinkedList methodList;
+    private String motherClass;
+
+    public String getMotherClass() {
+        return motherClass;
+    }
+
+    public void setMotherClass(String motherClass) {
+        this.motherClass = motherClass;
+    }
+
+    public LinkedList getAttributeList() {
+        return attributeList;
+    }
+
+    public void setAttributeList(LinkedList attributeList) {
+        this.attributeList = attributeList;
+    }
+
+    public LinkedList getMethodList() {
+        return methodList;
+    }
+
+    public void setMethodList(LinkedList methodList) {
+        this.methodList = methodList;
+    }
+
 }
