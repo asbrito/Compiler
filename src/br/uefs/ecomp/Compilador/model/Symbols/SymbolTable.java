@@ -13,6 +13,7 @@ import java.util.LinkedList;
  */
 public class SymbolTable {
     //lista tokkens
-    private LinkedList tableList;
-    
+    private LinkedList constList;
+    private LinkedList classList;
+   
 }

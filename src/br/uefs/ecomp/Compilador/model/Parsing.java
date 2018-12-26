@@ -5,7 +5,9 @@
  */
 package br.uefs.ecomp.Compilador.model;
 
+import br.uefs.ecomp.Compilador.model.Symbols.ClassSymbol;
 import br.uefs.ecomp.Compilador.model.Symbols.ConstantSymbol;
+import br.uefs.ecomp.Compilador.model.Symbols.VariablesSymbol;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -114,7 +116,7 @@ public class Parsing {
                         increment();
                         ConstantSymbol constant1 = new ConstantSymbol();
                         constant1.setType(constant.getType());
-                        constant1.setScope(constant.getType());
+                        constant1.setScope(constant.getScope());
                         moreConstStructure(constant);
                     }
                 }
@@ -126,11 +128,13 @@ public class Parsing {
         if ("class".equals(((Token) tokenList.get(i)).getLexeme())) {
             increment();
             if ((Type.Identifier.equals(((Token) tokenList.get(i)).getType()))) {
+                ClassSymbol Class = new ClassSymbol();
+                Class.setIdentifier(((Token) tokenList.get(i)).getLexeme());
                 increment();
                 if ("extends".equals(((Token) tokenList.get(i)).getLexeme())) {
                     increment();
                     if ((Type.Identifier.equals(((Token) tokenList.get(i)).getType()))) {
-                        
+                        Class.setMotherClass(((Token) tokenList.get(i)).getLexeme());
                         increment();
                     } else {
                         LinkedList l = new LinkedList();
@@ -238,6 +242,8 @@ public class Parsing {
 
     private void variableDeclarationStructure() throws IOException, IndexOutOfBoundsException {
         if (keywordType(((Token) tokenList.get(i)).getLexeme())) {
+            VariablesSymbol var = new VariablesSymbol();
+            var.setIdentifier(((Token) tokenList.get(i)).getLexeme());
             increment();
             moreVariableStructure();
             if (";".equals(((Token) tokenList.get(i)).getLexeme())) {
