@@ -7,7 +7,7 @@ package br.uefs.ecomp.Compilador.model.Symbols;
 
 /**
  *
- * @author adrie
+ * @author Adriel Brito & Natália Rosa
  */
 public class VariablesSymbol extends Symbol{
     

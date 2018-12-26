@@ -12,8 +12,23 @@ import java.util.LinkedList;
  * @author adrie
  */
 public class SymbolTable {
-    //lista tokkens
     private LinkedList constList;
     private LinkedList classList;
-   
+
+    public LinkedList getConstList() {
+        return constList;
+    }
+
+    public void setConstList(LinkedList constList) {
+        this.constList = constList;
+    }
+
+    public LinkedList getClassList() {
+        return classList;
+    }
+
+    public void setClassList(LinkedList classList) {
+        this.classList = classList;
+    }
+    
 }

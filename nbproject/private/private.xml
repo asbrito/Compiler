@@ -2,6 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/model/Symbols/ConstantSymbol.java</file>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/model/Semantic.java</file>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/model/Symbols/VariablesSymbol.java</file>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/controller/Compiler.java</file>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/model/Type.java</file>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/model/Symbols/MethodSymbol.java</file>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/model/Symbols/ClassSymbol.java</file>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/model/Symbols/SymbolTable.java</file>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/model/Parsing.java</file>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/model/IndexOutOfBoundsException.java</file>
+            <file>file:/C:/Users/nati_/Documents/Documentos/UEFS/Ecomp/4º%20Semestre/MI%20-%20Compiladores/Compiler/src/br/uefs/ecomp/Compilador/model/Symbols/Symbol.java</file>
+        </group>
+>>>>>>> 3d482b088e61282bf8ec45cea62062a34b1211b8
     </open-files>
 </project-private>

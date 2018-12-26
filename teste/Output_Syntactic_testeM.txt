@@ -1,4 +1,0 @@
-Erro sitático econtrado!
-Na linha 41 é esperado: 
-'}' 
- e consta: 'End of file exception'
