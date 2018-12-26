@@ -30,5 +30,9 @@ public class SymbolTable {
     public void setClassList(LinkedList classList) {
         this.classList = classList;
     }
-    
+
+    public SymbolTable(LinkedList constList, LinkedList classList) {
+        this.constList = constList;
+        this.classList = classList;
+    }  
 }

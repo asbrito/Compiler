@@ -14,5 +14,4 @@ import java.util.LinkedList;
 public class MethodSymbol extends Symbol{
     private LinkedList variablesList;
     private LinkedList parameterList;
-    private LinkedList commandsList;
 }

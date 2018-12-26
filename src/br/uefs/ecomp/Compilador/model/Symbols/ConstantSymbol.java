@@ -12,11 +12,6 @@ package br.uefs.ecomp.Compilador.model.Symbols;
 public class ConstantSymbol extends Symbol{
     private String value;
 
-    public ConstantSymbol(Object scope, String type, String identifier) {
-        super(scope, type, identifier);
-        this.value = value;
-    }
-
     public ConstantSymbol() {
     }
 
