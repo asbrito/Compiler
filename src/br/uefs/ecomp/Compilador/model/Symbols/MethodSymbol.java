@@ -14,4 +14,22 @@ import java.util.LinkedList;
 public class MethodSymbol extends Symbol{
     private LinkedList variablesList;
     private LinkedList parameterList;
+
+    public LinkedList getVariablesList() {
+        return variablesList;
+    }
+
+    public void setVariablesList(LinkedList variablesList) {
+        this.variablesList = variablesList;
+    }
+
+    public LinkedList getParameterList() {
+        return parameterList;
+    }
+
+    public void setParameterList(LinkedList parameterList) {
+        this.parameterList = parameterList;
+    }
+    
+    
 }
