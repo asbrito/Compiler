@@ -364,7 +364,7 @@ public class Parsing {
                         if ("(".equals(((Token) tokenList.get(i)).getLexeme())) {
                             increment();
                             while (!(")".equals(((Token) tokenList.get(i)).getLexeme()))) {
-                                methodParameterDeclarationStructure();
+                                methodParameterDeclarationStructure(method);
                             }
                             if (")".equals(((Token) tokenList.get(i)).getLexeme())) {
                                 increment();
@@ -446,28 +446,32 @@ public class Parsing {
         }
     }
 
-    private void methodParameterDeclarationStructure() throws IOException, IndexOutOfBoundsException {
+    private void methodParameterDeclarationStructure(MethodSymbol method) throws IOException, IndexOutOfBoundsException {
+        VariablesSymbol var = new VariablesSymbol();
         if (keywordType(((Token) tokenList.get(i)).getLexeme())) {
+            var.setType(((Token) tokenList.get(i)).getLexeme());
             increment();
             if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
+                var.setIdentifier(((Token) tokenList.get(i)).getLexeme());
                 increment();
-                arrayStructure();
                 if (",".equals(((Token) tokenList.get(i)).getLexeme())) {
                     increment();
-                    methodParameterDeclarationStructure();
+                    methodParameterDeclarationStructure(method);
                 }
             }
         } else if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
+            var.setType(((Token) tokenList.get(i)).getLexeme());
             increment();
             if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
+                var.setIdentifier(((Token) tokenList.get(i)).getLexeme());
                 increment();
-                arrayStructure();
                 if (",".equals(((Token) tokenList.get(i)).getLexeme())) {
                     increment();
-                    methodParameterDeclarationStructure();
+                    methodParameterDeclarationStructure(method);
                 }
             }
         }
+        method.getParameterList().add(var);
     }
 
     private void commandsStructure() throws IOException, IndexOutOfBoundsException {

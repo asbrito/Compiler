@@ -18,6 +18,10 @@ public class VariablesSymbol extends Symbol{
     private int sizeArray;
     private int sizeTwoArray;
 
+    public VariablesSymbol() {
+        this.array = 0;
+    }
+
     public int getSizeArray() {
         return sizeArray;
     }
