@@ -6,7 +6,6 @@
 package br.uefs.ecomp.Compilador.model;
 
 import br.uefs.ecomp.Compilador.model.Symbols.ClassSymbol;
-import br.uefs.ecomp.Compilador.model.Symbols.ConstSymbol;
 import br.uefs.ecomp.Compilador.model.Symbols.ConstantSymbol;
 import br.uefs.ecomp.Compilador.model.Symbols.SymbolTable;
 
@@ -20,21 +19,17 @@ public class Semantic {
     int i = 0;
     
     private void semanticController (){
-        if ((symbolTable.getTableList().get(i)) instanceof ConstSymbol) {
-            typeCheckConst();
-        }
-        else if ((symbolTable.getTableList().get(i)) instanceof ClassSymbol) {
-            checkClass();
-        }
+        typeCheckConst();
+
     }
 
     private void typeCheckConst() {
-        if ((symbolTable.getTableList().get(i)) instanceof ConstSymbol) {
-            int j = 0;
-            while (((ConstSymbol) symbolTable.getTableList().get(i)).getConstList().size() > j) {
-                switch (((ConstantSymbol) (((ConstSymbol) symbolTable.getTableList().get(i)).getConstList()).get(j)).getType()) {
+        int j = 0;
+        while (symbolTable.getConstList().size() > j){
+            if ((symbolTable.getConstList().get(j)) instanceof  ConstantSymbol) {
+                switch (((ConstantSymbol)symbolTable.getConstList().get(j)).getType()) {
                     case "int": {
-                        String value = ((ConstantSymbol) (((ConstSymbol) symbolTable.getTableList().get(i)).getConstList()).get(j)).getValue();
+                        String value = ((ConstantSymbol)symbolTable.getConstList().get(j)).getValue();
                         try {
                             int valueInt = Integer.parseInt(value);
                         } catch (java.lang.NumberFormatException ex) {
@@ -43,14 +38,14 @@ public class Semantic {
                         break;
                     }
                     case "float": {
-                        String value = ((ConstantSymbol) (((ConstSymbol) symbolTable.getTableList().get(i)).getConstList()).get(j)).getValue();
+                        String value = ((ConstantSymbol)symbolTable.getConstList().get(j)).getValue();
                         if (!(value.contains("."))) {
                             System.out.println("Erro: tipagem não corresponde ao valor declarado.");
                         }
                         break;
                     }
                     case "bool": {
-                        String value = ((ConstantSymbol) (((ConstSymbol) symbolTable.getTableList().get(i)).getConstList()).get(j)).getValue();
+                        String value = ((ConstantSymbol)symbolTable.getConstList().get(j)).getValue();
                         if (!(value.equals("true") || value.equals("false"))) {
                             System.out.println("Erro: tipagem não corresponde ao valor declarado.");
                         }
@@ -60,7 +55,7 @@ public class Semantic {
                         System.out.println("Void não pode.");
                         break;
                     case "string": {
-                        String value = ((ConstantSymbol) (((ConstSymbol) symbolTable.getTableList().get(i)).getConstList()).get(j)).getValue();
+                        String value = ((ConstantSymbol)symbolTable.getConstList().get(j)).getValue();
                         if (!(value.startsWith("\"") && value.endsWith("\""))) {
                             System.out.println("Erro: tipagem não corresponde ao valor declarado.");
                         }
@@ -69,12 +64,35 @@ public class Semantic {
                     default:
                         break;
                 }
-                j++;
             }
+            j++;
         }
     }
 
     private void checkClass() {
+        int j = 0;
+        if (symbolTable.getClassList().get(j) instanceof ClassSymbol){
+            if (((ClassSymbol)symbolTable.getClassList().get(j)).getMotherClass() != null){
+                String motherClassName = ((ClassSymbol)symbolTable.getClassList().get(j)).getMotherClass();
+                boolean exist = false;
+                
+                for (int k = j; k < 0; k--){
+                    if (((ClassSymbol)symbolTable.getClassList().get(k)).getIdentifier().equals(motherClassName)){
+                        exist = true;
+                        break;
+                    }
+                }
+                
+                if(!exist){
+                    System.out.println("Erro: Classe mãe não declarada.");
+                }
+            } else {
+                int n = 0;
+                while (((ClassSymbol)symbolTable.getClassList().get(j)).getMethodList().size() > n){
+                    
+                }
+            }
+        }
     }
   
 }
