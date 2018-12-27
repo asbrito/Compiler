@@ -10,11 +10,11 @@ package br.uefs.ecomp.Compilador.model.Symbols;
  * @author adrie
  */
 public abstract class Symbol {
-    private Object scope;
+    private String scope;
     private String type;
     private String identifier;
 
-    public Symbol(Object scope, String type, String identifier) {
+    public Symbol(String scope, String type, String identifier) {
         this.scope = scope;
         this.type = type;
         this.identifier = identifier;
@@ -23,11 +23,11 @@ public abstract class Symbol {
     public Symbol() {
     }
 
-    public Object getScope() {
+    public String getScope() {
         return scope;
     }
 
-    public void setScope(Object scope) {
+    public void setScope(String scope) {
         this.scope = scope;
     }
 
