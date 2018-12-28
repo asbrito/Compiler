@@ -177,7 +177,12 @@ public class Semantic {
                 Symbol b = (Symbol) exp.get(i+1);
                 if(a.getType().equals(b.getType())){
                     exp.set(-1, new Symbol(a.getType()));
-                    
+                    i+=2;
+                    for (int j = i; j < exp.size(); j++) {
+                        exp.set(j-2, exp.get(j));
+                    }
+                    exp.remove(exp.size()-1);
+                    exp.remove(exp.size()-2);                    
                 }else{
                     //erro
                 }
