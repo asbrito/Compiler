@@ -147,47 +147,84 @@ public class Semantic {
         for (int i = 0; i < exp.size(); i++) {
             Symbol s = (Symbol) exp.get(i);
             if (s.getToken().getType().equals("ArithmaticOperator")) {
-                Symbol a = (Symbol) exp.get(i-1);
-                Symbol b = (Symbol) exp.get(i+1);
-                if(a.getType().equals(b.getType())){
-                    exp.set(-1, new Symbol(a.getType()));
-                    
-                }else{
-                    //erro
-                }
-            }
-        }
-        for (int i = 0; i < exp.size(); i++) {
-            Symbol s = (Symbol) exp.get(i);
-            if (s.getToken().getType().equals("RelationalOperator")) {
-                Symbol a = (Symbol) exp.get(i-1);
-                Symbol b = (Symbol) exp.get(i+1);
-                if(a.getType().equals(b.getType())){
-                    exp.set(-1, new Symbol(a.getType()));
-                    
-                }else{
-                    //erro
-                }
-            }
-        }
-        for (int i = 0; i < exp.size(); i++) {
-            Symbol s = (Symbol) exp.get(i);
-            if (s.getToken().getType().equals("LogicalOperator")) {
-                Symbol a = (Symbol) exp.get(i-1);
-                Symbol b = (Symbol) exp.get(i+1);
-                if(a.getType().equals(b.getType())){
-                    exp.set(-1, new Symbol(a.getType()));
-                    i+=2;
+                Symbol a = (Symbol) exp.get(i - 1);
+                Symbol b = (Symbol) exp.get(i + 1);
+                if (a.getType().equals(b.getType())) {
+                    exp.set(i-1, new Symbol(a.getType()));
+                    i += 2;
                     for (int j = i; j < exp.size(); j++) {
-                        exp.set(j-2, exp.get(j));
+                        exp.set(j - 2, exp.get(j));
                     }
-                    exp.remove(exp.size()-1);
-                    exp.remove(exp.size()-2);                    
-                }else{
+                    exp.remove(exp.size() - 1);
+                    exp.remove(exp.size() - 2);
+                } else {
+                    //erro
+                }
+            }
+        } 
+        for (int i = 0; i < exp.size(); i++) {
+            Symbol s = (Symbol) exp.get(i);
+            if(s.getToken().getLexeme().equals("=") || s.getToken().getLexeme().equals("!=")){
+                Symbol a = (Symbol) exp.get(i - 1);
+                Symbol b = (Symbol) exp.get(i + 1);
+                if(a.getType().equals("bool") && b.getType().equals("bool")){
+                    exp.set(i-1, new Symbol(a.getType()));
+                    i += 2;
+                    for (int j = i; j < exp.size(); j++) {
+                        exp.set(j - 2, exp.get(j));
+                    }
+                    exp.remove(exp.size() - 1);
+                    exp.remove(exp.size() - 2);
+                }
+            }
+            if (s.getToken().getType().equals("RelationalOperator")) {
+                Symbol a = (Symbol) exp.get(i - 1);
+                Symbol b = (Symbol) exp.get(i + 1);
+                if (a.getType().equals("int") && b.getType().equals("int") || a.getType().equals("float") && b.getType().equals("float")) {
+                    exp.set(i-1, new Symbol(a.getType()));
+                    i += 2;
+                    for (int j = i; j < exp.size(); j++) {
+                        exp.set(j - 2, exp.get(j));
+                    }
+                    exp.remove(exp.size() - 1);
+                    exp.remove(exp.size() - 2);
+                } else {
                     //erro
                 }
             }
         }
-        return false;
+        for (int i = 0; i < exp.size(); i++) {
+            Symbol s = (Symbol) exp.get(i);
+            if(s.getToken().getLexeme().equals("!")){
+                Symbol b = (Symbol) exp.get(i + 1);
+                if(b.getType().equals("bool")){
+                    exp.set(i, new Symbol(b.getType()));
+                    i += 1;
+                    for (int j = i; j < exp.size(); j++) {
+                        exp.set(j - 1, exp.get(j));
+                    }
+                    exp.remove(exp.size() - 1);
+                }
+                else{
+                    //erro
+                }
+            }
+            else if (s.getToken().getType().equals("LogicalOperator")) {
+                Symbol a = (Symbol) exp.get(i - 1);
+                Symbol b = (Symbol) exp.get(i + 1);
+                if (a.getType().equals(b.getType())) {
+                    exp.set(i-1, new Symbol(a.getType()));
+                    i += 2;
+                    for (int j = i; j < exp.size(); j++) {
+                        exp.set(j - 2, exp.get(j));
+                    }
+                    exp.remove(exp.size() - 1);
+                    exp.remove(exp.size() - 2);
+                } else {
+                    //erro
+                }
+            }
+        }
+        return true;
     }
 }
