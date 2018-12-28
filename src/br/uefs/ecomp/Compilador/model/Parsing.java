@@ -105,7 +105,7 @@ public class Parsing {
 
     private void moreConstStructure(ConstantSymbol constant) throws IOException, IndexOutOfBoundsException {
         if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
-            constant.setIdentifier(((Token) tokenList.get(i)).getLexeme());
+            constant.setToken((Token) tokenList.get(i));
             increment();
             if ("=".equals(((Token) tokenList.get(i)).getLexeme())) {
                 increment();
@@ -133,7 +133,7 @@ public class Parsing {
             increment();
             if ((Type.Identifier.equals(((Token) tokenList.get(i)).getType()))) {
                 ClassSymbol Class = new ClassSymbol();
-                Class.setIdentifier(((Token) tokenList.get(i)).getLexeme());
+                Class.setToken((Token) tokenList.get(i));
                 increment();
                 if ("extends".equals(((Token) tokenList.get(i)).getLexeme())) {
                     increment();
@@ -155,8 +155,8 @@ public class Parsing {
                 table.getClassList().add(Class);
                 if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
                     increment();
-                    variableStructure(Class.getIdentifier());
-                    methodDeclarationStructure(Class.getIdentifier());
+                    variableStructure(Class.getToken().getLexeme());
+                    methodDeclarationStructure(Class.getToken().getLexeme());
                     if ("}".equals(((Token) tokenList.get(i)).getLexeme())) {
                         moreClassesStructure();
                     } else {
@@ -326,7 +326,7 @@ public class Parsing {
 
     private void moreVariableStructure(VariablesSymbol var) throws IOException, IndexOutOfBoundsException {
         if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
-            var.setIdentifier(((Token) tokenList.get(i)).getLexeme());
+            var.setToken((Token) tokenList.get(i));
             increment();
             arrayStructureVariables(var);
             attributeStructure();
@@ -356,10 +356,14 @@ public class Parsing {
             if (Type.Keyword.equals(((Token) tokenList.get(i)).getType())) {
                 if (keywordType(((Token) tokenList.get(i)).getLexeme())) {
                     method.setType(((Token) tokenList.get(i)).getLexeme());
+                    method.getVariablesList().addAll(table.getConstList());
+                    ClassSymbol class1 = new ClassSymbol();
+                    class1.setToken(new Token(scope));
+                    method.getVariablesList().addAll(((ClassSymbol)table.getClassList().get(table.getClassList().indexOf(class1))).getAttributeList());
                     method.setScope(scope);
                     increment();
                     if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
-                        method.setIdentifier(((Token) tokenList.get(i)).getLexeme());
+                        method.setToken((Token) tokenList.get(i));
                         increment();
                         if ("(".equals(((Token) tokenList.get(i)).getLexeme())) {
                             increment();
@@ -370,7 +374,7 @@ public class Parsing {
                                 increment();
                                 if ("{".equals(((Token) tokenList.get(i)).getLexeme())) {
                                     increment();
-                                    variableStructure(method.getIdentifier());
+                                    variableStructure(method.getToken().getLexeme());
                                     while (!("}".equals(((Token) tokenList.get(i)).getLexeme()))) {
                                         commandsStructure();
                                     }
@@ -452,8 +456,7 @@ public class Parsing {
             var.setType(((Token) tokenList.get(i)).getLexeme());
             increment();
             if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
-                var.setIdentifier(((Token) tokenList.get(i)).getLexeme());
-                increment();
+                var.setToken((Token) tokenList.get(i));                increment();
                 if (",".equals(((Token) tokenList.get(i)).getLexeme())) {
                     increment();
                     methodParameterDeclarationStructure(method);
@@ -463,7 +466,7 @@ public class Parsing {
             var.setType(((Token) tokenList.get(i)).getLexeme());
             increment();
             if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
-                var.setIdentifier(((Token) tokenList.get(i)).getLexeme());
+                var.setToken((Token) tokenList.get(i));
                 increment();
                 if (",".equals(((Token) tokenList.get(i)).getLexeme())) {
                     increment();

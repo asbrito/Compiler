@@ -5,19 +5,25 @@
  */
 package br.uefs.ecomp.Compilador.model.Symbols;
 
+import br.uefs.ecomp.Compilador.model.Token;
+
 /**
  *
  * @author adrie
  */
-public abstract class Symbol {
+public class Symbol {
     private String scope;
     private String type;
-    private String identifier;
-
-    public Symbol(String scope, String type, String identifier) {
+    private Token token;
+    
+    public Symbol(String scope, String type, Token token) {
         this.scope = scope;
         this.type = type;
-        this.identifier = identifier;
+        this.token = token;
+    }
+
+    public Symbol(String type) {
+        this.type = type;
     }
 
     public Symbol() {
@@ -39,12 +45,11 @@ public abstract class Symbol {
         this.type = type;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public Token getToken() {
+        return token;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setToken(Token token) {
+        this.token = token;
     }
-        
 }

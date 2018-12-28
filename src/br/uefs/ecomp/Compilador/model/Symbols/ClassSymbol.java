@@ -40,5 +40,10 @@ public class ClassSymbol extends Symbol{
     public void setMethodList(LinkedList methodList) {
         this.methodList = methodList;
     }
-
+   
+    @Override
+    public boolean equals(Object o){
+        ClassSymbol c = (ClassSymbol)o;
+        return this.getToken().getLexeme().equals(c.getToken().getLexeme());
+    }
 }
