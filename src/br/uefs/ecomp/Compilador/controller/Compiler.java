@@ -28,11 +28,6 @@ public class Compiler {
         File dir = new File("teste");
         dir.mkdir();
         File file = new File(dir.getAbsolutePath());
-        
-        String value = "2.0";
-        
-        System.out.println(Integer.parseInt(value));
-        
 
         File inputFileName[] = file.listFiles();
         for (File arquivos : inputFileName) {

@@ -28,6 +28,7 @@ public class Parsing {
     private SymbolTable table;
     private int i;
     private String nameFile;
+    private SymbolTable symbolTable;
 
     public Parsing(LinkedList tokenList, String name) {
         this.tokenList = tokenList;
@@ -463,6 +464,19 @@ public class Parsing {
                 }
             }
         } else if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
+            
+            boolean exist = false;
+            int j = symbolTable.getClassList().size();
+            for (int k = j; k < 0; k--) {
+                if (((ClassSymbol) symbolTable.getClassList().get(k)).getToken().getLexeme().equals(((Token) tokenList.get(i)).getType())) {
+                    exist = true;
+                    break;
+                }
+            }
+            if (!exist) {
+                System.out.println("Erro: Tipagem desconhecida.");
+            }
+            
             var.setType(((Token) tokenList.get(i)).getLexeme());
             increment();
             if (Type.Identifier.equals(((Token) tokenList.get(i)).getType())) {
